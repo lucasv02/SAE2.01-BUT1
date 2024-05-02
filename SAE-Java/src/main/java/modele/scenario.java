@@ -1,2 +1,5 @@
-package modele;public class scenario {
+package modele;
+
+public class scenario {
+
 }
