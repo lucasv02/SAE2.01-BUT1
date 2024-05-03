@@ -1,18 +1,20 @@
 package modele;
-public class ExceptionJoueur extends Exception implements ConstantesErreur{
+
+public class ExceptionTemple extends Exception implements ConstantesErreur {
 
     private int chCode;
 
-    public ExceptionJoueur(int parCode) {
+    public ExceptionTemple(int parCode) {
         parCode = chCode;
     }
 
     @Override
     public String toString() {
-        return ERREURS_JOUEURS[chCode];
+        return ERREURS_TEMPLE[chCode];
     }
 
     public int getChCode() {
         return chCode;
     }
 }
+
