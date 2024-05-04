@@ -1,7 +1,6 @@
 package modele;
 
 import javafx.util.Pair;
-
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeMap;
@@ -10,7 +9,7 @@ public class Cristaux implements Constantes {
 
     private TreeMap <Integer, Integer> chCristaux;
 
-    public Cristaux (int parCouleur, int parTemple) {
+    public Cristaux () {
         chCristaux = new TreeMap<Integer, Integer>();
     }
 
@@ -57,7 +56,6 @@ public class Cristaux implements Constantes {
     }
 
     public String toString(int parCristaux) throws ExceptionCristaux {
-
         if (!chCristaux.containsKey(parCristaux)) {
             throw new ExceptionCristaux(1);
         }
@@ -65,7 +63,4 @@ public class Cristaux implements Constantes {
             return "Cristaux: " + COULEUR_TEMPLE[parCristaux] + " Temple actuel: " + chCristaux.get(parCristaux);
         }
     }
-
-
-
 }
