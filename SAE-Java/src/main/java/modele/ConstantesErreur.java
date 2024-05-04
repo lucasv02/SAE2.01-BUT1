@@ -13,5 +13,10 @@ public interface ConstantesErreur {
             "La base ne trouvent pas votre temple"
     };
 
+    public final String [] ERREURS_CRISTAUX = {
+            "Ce cristal est déjà dans notre base des cristaux",
+            "Le cristal demandée n'est pas présent dans la base des cristaux"
+    };
+
 }
 

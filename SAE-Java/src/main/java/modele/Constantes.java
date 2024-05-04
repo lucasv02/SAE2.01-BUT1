@@ -1,6 +1,6 @@
 package modele;
 
-public interface ConstantesTemple {
+public interface Constantes {
     public final String[] COULEUR_TEMPLE = {
             "Rouge",
             "Vert",

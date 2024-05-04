@@ -10,8 +10,15 @@ public class Joueur {
 
     private int chTour;
 
+    private Boolean chPlein;
+
+    // Variable Integer pour le champ car on veut avoir la posibilité de le déclarer en tant que null
+    private Integer chCristal;
+
     public Joueur() {
         chPosition = new Pair<Integer, Integer>(0, 0);
+        chCristal = null;
+        chPlein = false;
     }
 
     public Pair <Integer, Integer> getPosition(){
@@ -38,6 +45,14 @@ public class Joueur {
             chPosition = new Pair<>(posX, posY);
             chTour += 1;
         }
+    }
+
+    public Integer getChCristal() {
+        return chCristal;
+    }
+
+    public Boolean getChPlein() {
+        return chPlein;
     }
 
 }

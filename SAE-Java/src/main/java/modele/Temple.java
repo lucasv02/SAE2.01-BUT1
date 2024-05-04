@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeMap;
 
-public class Temple implements ConstantesTemple {
+public class Temple implements Constantes {
 
     private TreeMap<Integer, Pair<Integer, Integer>> chTemple;
 
