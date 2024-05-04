@@ -4,7 +4,8 @@ public interface ConstantesErreur {
 
     public final String [] ERREURS_JOUEURS = {
             "Déplacement hors champ",
-            "Déplacement non autorisée"
+            "Déplacement non autorisée",
+            "Déplacement identique aux déplacement actuel"
 
     };
 

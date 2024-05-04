@@ -43,7 +43,6 @@ public class Joueur {
         }
         else {
             chPosition = new Pair<>(posX, posY);
-            chTour += 1;
         }
     }
 
@@ -55,4 +54,28 @@ public class Joueur {
         return chPlein;
     }
 
+    public void deplacementUneCase(Pair <Integer, Integer> parPosition) {
+        chTour++;
+        try {
+
+            if (chPosition.getKey() > parPosition.getKey()) {
+                this.updatePosition(chPosition.getKey()-1, chPosition.getValue());
+            }
+
+            if (chPosition.getKey() < parPosition.getKey()) {
+                this.updatePosition(chPosition.getKey()+1, chPosition.getValue());
+            }
+
+            if (chPosition.getValue() > parPosition.getValue()) {
+                this.updatePosition(chPosition.getKey(), chPosition.getValue()-1);
+            }
+            if (chPosition.getValue() < parPosition.getValue()) {
+                this.updatePosition(chPosition.getKey(), chPosition.getValue()+1);
+            }
+        }
+        catch(ExceptionJoueur parCode){
+            System.out.println(parCode);
+            System.exit(-1);
+        }
+    }
 }
