@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Scenario {
     public static void main (String [] args) {
         try {
-            Scanner scanner = new Scanner(new File("data" + File.separator + "scenario0.txt")).useDelimiter("\\s+");
+            Scanner scanner = new Scanner(new File("data" + File.separator + "scenario5.txt")).useDelimiter("\\s+");
             Temple temple = new Temple();
             Cristaux cristaux = new Cristaux();
 
