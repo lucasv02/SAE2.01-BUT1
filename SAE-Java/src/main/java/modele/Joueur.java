@@ -35,14 +35,38 @@ public class Joueur {
     }
 
     public void updatePosition(int posX, int posY) throws ExceptionJoueur {
+
         if (abs(posX) > 12 || abs(posY) > 12) {
             throw new ExceptionJoueur(1);
         }
+
         else if  (abs(posX - chPosition.getKey()) > 1 || abs(posY - chPosition.getValue()) > 1){
             throw new ExceptionJoueur(2);
         }
+
+        else if (abs(posX - chPosition.getValue())+ abs(posY - chPosition.getValue()) > 1) {
+            throw new ExceptionJoueur(2);
+        }
+
+        else if (abs(posX - chPosition.getKey()) == 0 && abs(posY - chPosition.getValue()) == 0){
+            throw new ExceptionJoueur(3);
+        }
+
         else {
-            chPosition = new Pair<>(posX, posY);
+            if (chPosition.getKey() > posX) {
+                chPosition = new Pair<Integer, Integer>(chPosition.getKey()-1, chPosition.getValue());
+            }
+
+            if (chPosition.getKey() < posX) {
+                chPosition = new Pair<Integer, Integer>(chPosition.getKey()+1, chPosition.getValue());
+            }
+
+            if (chPosition.getValue() > posY) {
+                chPosition = new Pair<Integer, Integer>(chPosition.getKey(), chPosition.getValue()-1);
+            }
+            if (chPosition.getValue() < posY) {
+                chPosition = new Pair<Integer, Integer>(chPosition.getKey(), chPosition.getValue()+1);
+            }
         }
     }
 
@@ -52,30 +76,5 @@ public class Joueur {
 
     public Boolean getChPlein() {
         return chPlein;
-    }
-
-    public void deplacementUneCase(Pair <Integer, Integer> parPosition) {
-        chTour++;
-        try {
-
-            if (chPosition.getKey() > parPosition.getKey()) {
-                this.updatePosition(chPosition.getKey()-1, chPosition.getValue());
-            }
-
-            if (chPosition.getKey() < parPosition.getKey()) {
-                this.updatePosition(chPosition.getKey()+1, chPosition.getValue());
-            }
-
-            if (chPosition.getValue() > parPosition.getValue()) {
-                this.updatePosition(chPosition.getKey(), chPosition.getValue()-1);
-            }
-            if (chPosition.getValue() < parPosition.getValue()) {
-                this.updatePosition(chPosition.getKey(), chPosition.getValue()+1);
-            }
-        }
-        catch(ExceptionJoueur parCode){
-            System.out.println(parCode);
-            System.exit(-1);
-        }
     }
 }
