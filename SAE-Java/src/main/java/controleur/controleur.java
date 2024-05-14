@@ -3,6 +3,7 @@ package controleur;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.control.MenuItem;
 import modele.Temple;
 import vue.VBoxRoot;
 
@@ -12,7 +13,7 @@ import java.util.Collection;
 public class controleur implements EventHandler {
         @Override
     public void handle (Event event) {
-        Object userData = ((Menultem) event.getSource()).getUserData();
+        Object userData = ((MenuItem) event.getSource()).getUserData();
         if (userData instanceof File) { // l'ut. a choisi un scénario
             File fichierScenario = (File) userData;
             System.out.println(fichierScenario.getName());
