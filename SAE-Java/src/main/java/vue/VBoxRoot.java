@@ -16,10 +16,9 @@ public class VBoxRoot extends VBox implements Constantes {
     private static controleur controleur ;
     private static VBoxCanvas vueCanvas; // ancienne VBoxRoot
     public VBoxRoot () {
-        apprenti = new ApprentiOrdonnateur();
         controleur = new controleur() ;
 // La barre de menus
-        MenuBar menuBar = new MenuBar);
+        MenuBar menuBar = new MenuBar();
         this.getChildren(). add (menuBar) ;
         VBox. setMargin (menuBar, new Insets(9 )) ;
 // Le menu des scénarios
