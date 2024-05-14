@@ -1,7 +1,7 @@
 package modele;
 
 public interface Constantes {
-    public final String[] COULEUR_TEMPLE = {
+    public final String[] COULEUR = {
             "Rouge",
             "Vert",
             "Bleu",

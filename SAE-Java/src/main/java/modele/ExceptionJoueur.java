@@ -4,7 +4,7 @@ public class ExceptionJoueur extends Exception implements ConstantesErreur{
     private int chCode;
 
     public ExceptionJoueur(int parCode) {
-        parCode = chCode;
+        chCode = parCode;
     }
 
     @Override

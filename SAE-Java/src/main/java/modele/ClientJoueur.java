@@ -5,9 +5,7 @@ public class ClientJoueur {
         try {
             Joueur test = new Joueur();
             System.out.println(test);
-            test.updatePosition(0, 1);
-            System.out.println(test);
-            test.updatePosition(24,24);
+            test.updatePosition(0,3);
         }
         catch(ExceptionJoueur parCode){
             System.out.println(parCode);

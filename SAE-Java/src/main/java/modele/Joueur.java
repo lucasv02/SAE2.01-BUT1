@@ -16,7 +16,7 @@ public class Joueur {
     private Integer chCristal;
 
     public Joueur() {
-        chPosition = new Pair<Integer, Integer>(0, 0);
+        chPosition = new Pair <Integer, Integer>(0, 0);
         chCristal = null;
         chPlein = false;
     }
@@ -34,39 +34,9 @@ public class Joueur {
         return "Position X: " + chPosition.getKey() + " " +  "Position Y: " + chPosition.getValue();
     }
 
-    public void updatePosition(int posX, int posY) throws ExceptionJoueur {
-
-        if (abs(posX) > 12 || abs(posY) > 12) {
-            throw new ExceptionJoueur(1);
-        }
-
-        else if  (abs(posX - chPosition.getKey()) > 1 || abs(posY - chPosition.getValue()) > 1){
-            throw new ExceptionJoueur(2);
-        }
-
-        else if (abs(posX - chPosition.getValue())+ abs(posY - chPosition.getValue()) > 1) {
-            throw new ExceptionJoueur(2);
-        }
-
-        else if (abs(posX - chPosition.getKey()) == 0 && abs(posY - chPosition.getValue()) == 0){
+    public void updatePosition (int posX, int posY) throws ExceptionJoueur {
+        if (chPosition.getKey().equals(posX) && chPosition.getValue().equals(posY)) {
             throw new ExceptionJoueur(3);
-        }
-
-        else {
-            if (chPosition.getKey() > posX) {
-                chPosition = new Pair<Integer, Integer>(chPosition.getKey()-1, chPosition.getValue());
-            }
-
-            if (chPosition.getKey() < posX) {
-                chPosition = new Pair<Integer, Integer>(chPosition.getKey()+1, chPosition.getValue());
-            }
-
-            if (chPosition.getValue() > posY) {
-                chPosition = new Pair<Integer, Integer>(chPosition.getKey(), chPosition.getValue()-1);
-            }
-            if (chPosition.getValue() < posY) {
-                chPosition = new Pair<Integer, Integer>(chPosition.getKey(), chPosition.getValue()+1);
-            }
         }
     }
 
