@@ -1,6 +1,6 @@
 package modele;
 
-public class Temple implements DonnéesCanvas {
+public class Temple implements DonneesCanvas {
 
     private Position chPosition;
 
