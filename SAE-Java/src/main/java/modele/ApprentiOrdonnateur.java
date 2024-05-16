@@ -2,10 +2,10 @@ package modele;
 
 public class ApprentiOrdonnateur {
     private Position posApprenti;
-    private Cristaux cristalInHand;
+    private int cristalInHand;
 
     // Constructeur
-    public ApprentiOrdonnateur(Position posApprenti, Cristaux cristalInHand) {
+    public ApprentiOrdonnateur(Position posApprenti, int cristalInHand) {
         this.posApprenti = posApprenti;
         this.cristalInHand = cristalInHand;
     }
@@ -21,12 +21,12 @@ public class ApprentiOrdonnateur {
     }
 
     // Méthode pour obtenir le cristal que l'apprenti tient
-    public Cristaux getCristalInHand() {
+    public int getCristalInHand() {
         return cristalInHand;
     }
 
     // Méthode pour définir le cristal que l'apprenti tient
-    public void setCristalInHand(Cristaux cristalInHand) {
+    public void setCristalInHand(int cristalInHand) {
         this.cristalInHand = cristalInHand;
     }
 }
