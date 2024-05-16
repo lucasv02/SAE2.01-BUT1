@@ -48,6 +48,7 @@ public class Position {
     public void SetNombreDePas(int parNb) {
         nombreDePas = parNb;
     }
+
     public int getAbscisse () {
         return abscisse;
     }
