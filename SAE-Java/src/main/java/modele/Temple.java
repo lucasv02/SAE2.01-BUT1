@@ -8,8 +8,8 @@ public class Temple implements Constantes {
 
     private int chCristal;
 
-    public Temple(Position parPostion, int parCouleur, int parCristal) {
-        chPosition = parPostion;
+    public Temple(Position parPosition, int parCouleur, int parCristal) {
+        chPosition = parPosition;
         chCouleur = parCouleur;
         chCristal = parCristal;
     }
