@@ -1,6 +1,15 @@
 package modele;
 
-public interface Constantes {
+import javafx.scene.paint.Color;
+
+public interface DonnéesCanvas {
+
+    final int LARGEUR_CANVAS = 500;
+    final int HAUTEUR_CANVAS = 500;
+    final int CARRE = 50;
+
+    final Color COULEUR_GRILLE = Color.GREEN;
+
     public final String[] COULEUR = {
             "Rouge",
             "Vert",
@@ -46,4 +55,5 @@ public interface Constantes {
             "#FFD700",
             "#C0C0C0"
     };
+}
 }
