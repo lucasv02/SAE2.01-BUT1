@@ -17,7 +17,6 @@ import java.io.File;
 public class VBoxRoot extends VBox implements DonnéesCanvas {
     private static ApprentiOrdonnateur apprenti ;
     private static controleur controleur ;
-    private static VBoxCanvas vueCanvas; // ancienne VBoxRoot
     public VBoxRoot () {
         controleur = new controleur() ;
 // La barre de menus
@@ -69,5 +68,6 @@ public class VBoxRoot extends VBox implements DonnéesCanvas {
             numLigne++;
         }
     }
+
     }
 }
