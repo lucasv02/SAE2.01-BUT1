@@ -1,6 +1,7 @@
 package modele;
 
 public class ApprentiOrdonnateur {
+
     private Position posApprenti;
     private int cristalInHand;
 
