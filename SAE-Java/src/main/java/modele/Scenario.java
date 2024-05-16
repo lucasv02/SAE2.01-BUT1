@@ -2,6 +2,7 @@ package modele;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
 
@@ -11,6 +12,7 @@ public class Scenario {
 
     public Scenario (String parFile) {
 
+        this.listeTemple = new ArrayList<>();
         File fichier = new File ("data" + File.separator + parFile);
 
         try {

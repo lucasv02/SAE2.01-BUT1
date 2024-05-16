@@ -56,4 +56,4 @@ public interface DonnéesCanvas {
             "#C0C0C0"
     };
 }
-}
+
