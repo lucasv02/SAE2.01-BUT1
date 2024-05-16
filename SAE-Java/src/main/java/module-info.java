@@ -6,4 +6,6 @@ module org.example.saejava {
 
     opens org.example.saejava to javafx.fxml;
     exports org.example.saejava;
+    exports modele;
+    exports vue;
 }

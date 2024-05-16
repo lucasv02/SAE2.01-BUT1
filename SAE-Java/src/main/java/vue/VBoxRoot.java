@@ -1,6 +1,5 @@
 package vue;
 
-import controleur.controleur;
 import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -10,28 +9,31 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import modele.ApprentiOrdonnateur;
-import modele.DonnéesCanvas;
+import modele.DonneesCanvas;
+import modele.INTITULE_MENU_SCENARIOS;
 
 import java.io.File;
 
-public class VBoxRoot extends VBox implements DonnéesCanvas {
+
+
+
+public class VBoxRoot extends VBox implements DonneesCanvas,INTITULE_MENU_SCENARIOS {
     private static ApprentiOrdonnateur apprenti ;
-    private static controleur controleur ;
+    //private static controleur controleur ;
     public VBoxRoot () {
-        controleur = new controleur() ;
+        //controleur = new controleur() ;
 // La barre de menus
         MenuBar menuBar = new MenuBar();
-        this.getChildren(). add (menuBar) ;
-        VBox. setMargin (menuBar, new Insets(9 )) ;
+        this.getChildren().add(menuBar) ;
+        VBox.setMargin (menuBar, new Insets(9 )) ;
 // Le menu des scénarios
-        Menu menuScenarios = new Menu(INTITULE_MENU_SCENARIOS) ;
+        Menu menuScenarios = new Menu("Scénario") ;
         menuBar.getMenus().add(menuScenarios) ;
-// Les items du menu scénario
-        File[] scenarios = new File ("scenarios"). listFiles();
-        for (int i= 0 ; i <scenarios.length ; i++) {
-            MenuItem menuItem = new MenuItem(scenarios[i].getName());
-            menuItem.setUserData(scenarios[i]);
-            menuItem.setOnAction(controleur);
+        // Les items du menu scénario
+        for (int i = 0; i < INTITULE_MENU_SCENARIOS.length ; i++) {
+            MenuItem menuItem = new MenuItem(INTITULE_MENU_SCENARIOS[i]);
+            menuItem.setUserData(INTITULE_MENU_SCENARIOS[i]);
+            //menuItem.setOnAction(controleur);
             menuScenarios.getItems().add(menuItem);
         }
         // l'étiquette qui affiche le nombre de pas
@@ -69,5 +71,5 @@ public class VBoxRoot extends VBox implements DonnéesCanvas {
         }
     }
 
-    }
 }
+

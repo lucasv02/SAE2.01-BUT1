@@ -2,7 +2,7 @@ package modele;
 
 import javafx.scene.paint.Color;
 
-public interface DonnéesCanvas {
+public interface DonneesCanvas {
 
     final int LARGEUR_CANVAS = 500;
     final int HAUTEUR_CANVAS = 500;
@@ -56,4 +56,4 @@ public interface DonnéesCanvas {
             "#C0C0C0"
     };
 }
-}
+
