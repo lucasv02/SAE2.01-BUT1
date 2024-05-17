@@ -6,9 +6,9 @@ public class ApprentiOrdonnateur {
     private int cristalInHand;
 
     // Constructeur
-    public ApprentiOrdonnateur(Position posApprenti, int cristalInHand) {
-        this.posApprenti = posApprenti;
-        this.cristalInHand = cristalInHand;
+    public ApprentiOrdonnateur() {
+        this.posApprenti = new Position(0,0);
+        this.cristalInHand = -1;
     }
 
     // Méthode pour obtenir la position de l'apprenti
