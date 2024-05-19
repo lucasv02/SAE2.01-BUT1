@@ -6,7 +6,7 @@ public interface DonneesCanvas {
 
     final int LARGEUR_CANVAS = 500;
     final int HAUTEUR_CANVAS = 500;
-    final int CARRE = 50;
+    final int CARRE = 20;
 
     final Color COULEUR_GRILLE = Color.GREEN;
 
@@ -55,5 +55,6 @@ public interface DonneesCanvas {
             "#FFD700",
             "#C0C0C0"
     };
+
 }
 

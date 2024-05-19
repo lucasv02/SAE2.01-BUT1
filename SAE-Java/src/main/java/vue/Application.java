@@ -10,7 +10,7 @@ public class Application extends javafx.application.Application {
 
     public void start(Stage stage){
         VBoxRoot root = new VBoxRoot();
-        Scene scene = new Scene(root, 800, 800);
+        Scene scene = new Scene(root, 1000, 800);
         stage.setScene(scene);
         stage.setTitle("Jeu");
         stage.show();

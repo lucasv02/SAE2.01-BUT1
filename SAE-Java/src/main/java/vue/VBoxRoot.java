@@ -22,31 +22,42 @@ public class VBoxRoot extends VBox implements DonneesCanvas,INTITULE_MENU_SCENAR
     //private static controleur controleur ;
     public VBoxRoot () {
         //controleur = new controleur() ;
-// La barre de menus
+
+
+        // La barre de menus
         MenuBar menuBar = new MenuBar();
         this.getChildren().add(menuBar) ;
         VBox.setMargin (menuBar, new Insets(9 )) ;
-// Le menu des scénarios
+
+        // Le menu des scénarios
         Menu menuScenarios = new Menu("Scénario") ;
         menuBar.getMenus().add(menuScenarios) ;
+
         // Les items du menu scénario
-        for (int i = 0; i < INTITULE_MENU_SCENARIOS.length ; i++) {
-            MenuItem menuItem = new MenuItem(INTITULE_MENU_SCENARIOS[i]);
-            menuItem.setUserData(INTITULE_MENU_SCENARIOS[i]);
+        for(String intituleMenuScenario : INTITULE_MENU_SCENARIOS) {
+            MenuItem menuItem = new MenuItem(intituleMenuScenario);
+            menuItem.setUserData(intituleMenuScenario);
             //menuItem.setOnAction(controleur);
             menuScenarios.getItems().add(menuItem);
         }
+        // Ajustement de la taille de la grille
+        int numColumns = 31;
+        int numRows = 31;
+        int gridWidth = numColumns * CARRE;
+        int gridHeight = numRows * CARRE;
+
         // l'étiquette qui affiche le nombre de pas
         Label labelNombreDePas = new Label("Nombre de pas : 0");
+
         // le canvas et son contexte graphique
-        Canvas canvasCarte = new Canvas();
+        Canvas canvasCarte = new Canvas(gridWidth, gridHeight);
         canvasCarte.setWidth(LARGEUR_CANVAS);
         canvasCarte.setHeight(HAUTEUR_CANVAS);
         GraphicsContext graphicsContext2D = canvasCarte.getGraphicsContext2D();
+
         // les carrés
-        graphicsContext2D.setStroke(COULEUR_GRILLE);
-        for (int i = 0; i < LARGEUR_CANVAS; i += CARRE) {
-            for (int j = 0; j < HAUTEUR_CANVAS; j += CARRE) {
+        for (int i = 0; i < gridWidth; i += CARRE) {
+            for (int j = 0; j < gridHeight; j += CARRE) {
                 graphicsContext2D.strokeRect(i, j, CARRE, CARRE);
             }
         }
@@ -57,18 +68,19 @@ public class VBoxRoot extends VBox implements DonneesCanvas,INTITULE_MENU_SCENAR
         VBox.setMargin(canvasCarte, new Insets(30));
 
 
-        int numcol = 1;
         graphicsContext2D.setFill(COULEUR_GRILLE);
-        for(int i = CARRE; i < LARGEUR_CANVAS; i+= CARRE){
-            graphicsContext2D.fillText(Integer.toString(numcol),i+CARRE/3, CARRE/2);
-            numcol++;
+        for (int i = 0; i < numColumns; i++) {
+            int x = (i + 1) * CARRE + CARRE / 3; // Ajouter CARRE pour positionner à l'extérieur
+            int y = CARRE / 2;
+            graphicsContext2D.fillText(Integer.toString(i), x, y);
         }
-        int numLigne = 1;
-        graphicsContext2D.setFill(COULEUR_GRILLE);
-        for(int i = CARRE; i < HAUTEUR_CANVAS; i+= CARRE) {
-            graphicsContext2D.fillText(Integer.toString(numLigne), CARRE / 3, i + CARRE / 2);
-            numLigne++;
+        for (int i = 0; i < numRows; i++) {
+            int x = CARRE / 3;
+            int y = (i + 1) * CARRE + CARRE / 2; // Ajouter CARRE pour positionner à l'extérieur
+            graphicsContext2D.fillText(Integer.toString(i), x, y);
+
         }
+
     }
 
 }
