@@ -2,27 +2,13 @@ package modele;
 
 import javafx.scene.paint.Color;
 
-public interface Constantes {
+public interface DonneesCanvas {
 
-    // Constantes sur la taille de la fenetre de l'application
-    final int TAILLE_HAUTEUR = 1350;
-    final int TAILLE_LARGEUR = 900;
+    final int LARGEUR_CANVAS = 500;
+    final int HAUTEUR_CANVAS = 500;
+    final int CARRE = 50;
 
-    // Constantes sur les différents menus
-    public final String[] TYPE_MENUS = {
-            "Scénario",
-            "Parcours",
-            "Informations",
-            "Mode manuel",
-            "Historique"
-    };
-
-    // Constatntes sur le canvas
-
-    final int LARGEUR_CANVAS = 800;
-    final int HAUTEUR_CANVAS = 800;
-    final int CARRE = 25;
-    final Color COULEUR_GRILLE = Color.BLACK;
+    final Color COULEUR_GRILLE = Color.GREEN;
 
     public final String[] COULEUR = {
             "Rouge",
