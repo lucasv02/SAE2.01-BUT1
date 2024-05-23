@@ -2,12 +2,20 @@ package modele;
 
 import javafx.scene.paint.Color;
 
-public interface DonneesCanvas {
+public interface Constantes {
 
-    final int LARGEUR_CANVAS = 500;
-    final int HAUTEUR_CANVAS = 500;
-    final int CARRE = 50;
+    final int LARGEUR_CANVAS = 800;
+    final int HAUTEUR_CANVAS = 800;
+    final int CARRE = 25;
 
+
+    public final String[] TYPE_MENUS= {
+            "Parcours",
+            "Informations",
+            "Manuel",
+            "Historique",
+            "Test"
+    };
     final Color COULEUR_GRILLE = Color.GREEN;
 
     public final String[] COULEUR = {

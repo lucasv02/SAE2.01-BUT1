@@ -9,7 +9,7 @@ import java.util.Map;
 public class Application extends javafx.application.Application {
 
     public void start(Stage stage){
-        VBoxRoot root = new VBoxRoot();
+        HBoxApp root = new HBoxApp();
         Scene scene = new Scene(root, 800, 800);
         stage.setScene(scene);
         stage.setTitle("Jeu");
