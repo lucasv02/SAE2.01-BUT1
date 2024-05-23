@@ -4,7 +4,10 @@ import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.VBox;
-import modele.Constantes;
+import javafx.scene.paint.Color;
+import modele.*;
+
+import java.util.Collection;
 
 public class VBoxCarte extends VBox implements Constantes {
 
@@ -80,6 +83,29 @@ public class VBoxCarte extends VBox implements Constantes {
 
         this.getChildren().add(canvasCarte);
         VBoxCarte.setMargin(canvasCarte, new Insets(30));
+
+        // Get the list of temples from the Scenario class
+        Scenario scenario = new Scenario("scenario0.txt");
+        Collection<Temple> temples = scenario.getListeTemple();
+        // Get the position of the apprentice from the ApprentiOrdonnateur class
+        ApprentiOrdonnateur apprenti = new ApprentiOrdonnateur();
+        Position apprentiPosition = apprenti.getPositionApprenti();
+        // Draw each temple on the canvas
+        for (Temple temple : temples) {
+            Position templePosition = temple.getChPosition();
+            int templeX = templePosition.getAbscisse() * CARRE;
+            int templeY = templePosition.getOrdonnee() * CARRE;
+            // Draw temple on the canvas at (templeX, templeY)
+            graphicsContext2D.setFill(Color.web(COULEUR_HEX_TEMPLE[temple.getChCouleur()]));
+            graphicsContext2D.fillRect(templeX, templeY, CARRE, CARRE);
+        }
+        // Draw the apprentice on the canvas
+        int apprentiX = apprentiPosition.getAbscisse() * CARRE;
+        int apprentiY = apprentiPosition.getOrdonnee() * CARRE;
+        // Draw apprentice on the canvas at (apprentiX, apprentiY)
+        graphicsContext2D.setFill(Color.BLUE);
+        graphicsContext2D.fillOval(apprentiX, apprentiY, CARRE, CARRE);
+
 
     }
 }
