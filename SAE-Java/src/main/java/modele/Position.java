@@ -62,6 +62,6 @@ public class Position {
     }
 
     public String toString() {
-        return "Position x : " + abscisse + " Position y : " + ordonnee;
+        return "(" + abscisse +  "," + ordonnee + ")";
     }
 }

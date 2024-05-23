@@ -1,6 +1,6 @@
 package modele;
 
-public class Temple implements DonneesCanvas {
+public class Temple implements Constantes {
 
     private Position chPosition;
 
@@ -27,7 +27,7 @@ public class Temple implements DonneesCanvas {
     }
 
     public String toString() {
-        return "Temple: " + chCouleur + " Couleur du temple: " + COULEUR[chCouleur] + " " + chPosition.toString()
+        return "Temple: " + chCouleur + " Couleur du temple: " + COULEUR[chCouleur] + " Position: " + chPosition.toString()
                 + " Cristal associée: " + COULEUR[chCristal];
     }
 
