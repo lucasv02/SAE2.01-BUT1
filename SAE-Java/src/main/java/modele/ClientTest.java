@@ -1,6 +1,9 @@
 package modele;
 
+import vue.HBoxApp;
+
 import java.util.Collection;
+
 
 public class ClientTest {
 

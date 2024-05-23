@@ -10,11 +10,11 @@ public interface Constantes {
 
 
     public final String[] TYPE_MENUS= {
-            "Parcours",
+            "Scénario",
             "Informations",
-            "Manuel",
-            "Historique",
-            "Test"
+            "Parcours Manuel",
+            "Parcours automatique",
+            "Historique"
     };
     final Color COULEUR_GRILLE = Color.GREEN;
 

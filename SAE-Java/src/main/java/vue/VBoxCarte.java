@@ -3,22 +3,30 @@ package vue;
 import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import modele.*;
 
 import java.util.Collection;
+import java.util.Collections;
+
+import static java.lang.Math.abs;
 
 public class VBoxCarte extends VBox implements Constantes {
 
     private Canvas canvasCarte;
+
+    GraphicsContext graphicsContext2D;
 
     public VBoxCarte() {
 
         canvasCarte = new Canvas();
         canvasCarte.setWidth(LARGEUR_CANVAS);
         canvasCarte.setHeight(HAUTEUR_CANVAS);
-        GraphicsContext graphicsContext2D = canvasCarte.getGraphicsContext2D();
+        graphicsContext2D = canvasCarte.getGraphicsContext2D();
+        graphicsContext2D.setGlobalBlendMode(BlendMode.SRC_OVER);
+
 
         // Création du quadrillage
         graphicsContext2D.setStroke(COULEUR_GRILLE);
@@ -84,28 +92,66 @@ public class VBoxCarte extends VBox implements Constantes {
         this.getChildren().add(canvasCarte);
         VBoxCarte.setMargin(canvasCarte, new Insets(30));
 
-        // Get the list of temples from the Scenario class
-        Scenario scenario = new Scenario("scenario0.txt");
-        Collection<Temple> temples = scenario.getListeTemple();
-        // Get the position of the apprentice from the ApprentiOrdonnateur class
-        ApprentiOrdonnateur apprenti = new ApprentiOrdonnateur();
-        Position apprentiPosition = apprenti.getPositionApprenti();
-        // Draw each temple on the canvas
-        for (Temple temple : temples) {
-            Position templePosition = temple.getChPosition();
-            int templeX = templePosition.getAbscisse() * CARRE;
-            int templeY = templePosition.getOrdonnee() * CARRE;
-            // Draw temple on the canvas at (templeX, templeY)
-            graphicsContext2D.setFill(Color.web(COULEUR_HEX_TEMPLE[temple.getChCouleur()]));
-            graphicsContext2D.fillRect(templeX, templeY, CARRE, CARRE);
-        }
-        // Draw the apprentice on the canvas
-        int apprentiX = apprentiPosition.getAbscisse() * CARRE;
-        int apprentiY = apprentiPosition.getOrdonnee() * CARRE;
-        // Draw apprentice on the canvas at (apprentiX, apprentiY)
-        graphicsContext2D.setFill(Color.BLUE);
-        graphicsContext2D.fillOval(apprentiX, apprentiY, CARRE, CARRE);
-
 
     }
+
+    public Position convertPosition(Position parPosition) {
+        System.out.println("X: " + parPosition.getAbscisse() + " Y: " + parPosition.getOrdonnee());
+        int templeX = 0;
+        int templeY = 0;
+        if (parPosition.getAbscisse()  < 0) {
+            templeX = abs(parPosition.getAbscisse()) * CARRE;
+        }
+        else if (parPosition.getAbscisse() >= 0) {
+            templeX = (parPosition.getAbscisse() + 16)* CARRE;
+        }
+        if (parPosition.getOrdonnee() < 0) {
+            templeY = abs(parPosition.getOrdonnee()) * CARRE;
+        }
+        else if (parPosition.getOrdonnee() >= 0) {
+            templeY = (parPosition.getOrdonnee() + 16) * CARRE;
+        }
+        System.out.println("X: " + templeX + " Y: " + templeY);
+        return new Position(templeX, templeY);
+
+    }
+
+    public void putTemple (Temple parTemple) {
+
+        Position templePosition = convertPosition(parTemple.getChPosition());
+        graphicsContext2D.setFill(Color.BLUE);
+        graphicsContext2D.fillOval(templePosition.getAbscisse() + 1, templePosition.getOrdonnee() + 1, CARRE - 2, CARRE - 2);
+
+    }
+
+    public void putApprenti (Position parPosition) {
+         Position apprentiPosition = convertPosition(parPosition);
+        graphicsContext2D.setFill(Color.DARKCYAN);
+        graphicsContext2D.fillOval(apprentiPosition.getAbscisse()+ 1, apprentiPosition.getOrdonnee() + 1, CARRE-2, CARRE-2);
+    }
+
+    public void initialisationMap (Collection <Temple> parListeTemple) {
+        for (Temple temple : parListeTemple) {
+            putTemple(temple);
+        }
+        putApprenti(new Position(0, 0));
+    }
+
+    public void deleteObject (Position parPosition) {
+        Position apprentiPosition = convertPosition(parPosition);
+        graphicsContext2D.setFill(Color.WHITESMOKE);
+        graphicsContext2D.clearRect(apprentiPosition.getAbscisse() + 1, apprentiPosition.getOrdonnee()+ 1, CARRE-2, CARRE-2);
+
+    }
+
+    public void updateMap (Collection <Temple> parListeTemple, Position parPosition) {
+        for (Temple temple : parListeTemple) {
+            putTemple(temple);
+        }
+        putApprenti(parPosition);
+    }
+
+
+
+
 }
