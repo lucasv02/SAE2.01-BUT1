@@ -26,6 +26,10 @@ public class Temple implements Constantes {
         return chCristal;
     }
 
+    public void setChCristal(int chCristal) {
+        this.chCristal = chCristal;
+    }
+
     public String toString() {
         return "Temple: " + chCouleur + " Couleur du temple: " + COULEUR[chCouleur] + " Position: " + chPosition.toString()
                 + " Cristal associée: " + COULEUR[chCristal];
