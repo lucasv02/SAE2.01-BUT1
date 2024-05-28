@@ -1,5 +1,6 @@
 package vue;
 
+import controleur.Controleur;
 import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,27 +13,31 @@ import modele.Scenario;
 
 public class HBoxApp extends HBox implements Constantes {
 
-    private VBoxCarte carte;
+    private static VBoxCarte carte;
 
-    private VBoxMenu menu;
+    private static VBoxMenu menu;
+
+    private static Controleur controleur;
 
     public HBoxApp() {
-
         carte = new VBoxCarte();
         menu = new VBoxMenu();
+        controleur = new Controleur();
         this.getChildren().addAll(carte, menu);
-        Scenario test = new Scenario("scenario3.txt");
-        carte.initialisationMap(test.getListeTemple());
 
-
+        HBoxApp.setMargin(menu, new Insets(30));
     }
 
-    public VBoxCarte getCarte() {
+    public static VBoxCarte getCarte() {
         return carte;
     }
 
-    public VBoxMenu getMenu() {
+    public static VBoxMenu getMenu() {
         return menu;
+    }
+
+    public static Controleur getControleur() {
+        return controleur;
     }
 
 }

@@ -10,6 +10,8 @@ public class Scenario {
 
     private Collection <Temple> listeTemple;
 
+    private ApprentiOrdonnateur apprenti;
+
     public Scenario (String parFile) {
 
         this.listeTemple = new ArrayList<>();
@@ -26,9 +28,10 @@ public class Scenario {
                 int cristal = scanner.nextInt();
                 temple = new Temple(new Position(posX, poxY), couleurT, cristal);
                 listeTemple.add(temple);
-                System.out.println(temple);
             }
+            apprenti = new ApprentiOrdonnateur();
             scanner.close();
+            System.out.println("Fichier lu");
         }
 
         catch (FileNotFoundException parExecption) {
@@ -50,4 +53,7 @@ public class Scenario {
         return null;
     }
 
+    public ApprentiOrdonnateur getApprenti() {
+        return apprenti;
+    }
 }

@@ -1,66 +1,68 @@
 package vue;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import modele.Constantes;
 import modele.Historique;
 import modele.Position;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class VBoxMenu extends VBox implements Constantes {
 
-    private static MenuBar menuBar;
+    private static GridPaneParcours parcours;
 
-    private static Menu menuSce;
-    private static Menu menuInf;
-    private static Menu menuPar;
-    private static Menu menuMan;
-    private static Menu menuHis;
+    private static GridPaneScenario scenario;
 
-    private static ComBoxFile listefichiers;
+    private static GridPaneInformations informations;
 
-    private static StackPane carrousel;
-
-    private static TableView <Historique> tableHistorique;
+    private static TableViewHistorique historique;
 
     public VBoxMenu() {
 
-        menuBar = new MenuBar();
-        menuSce = new Menu(TYPE_MENUS[0]);
-        menuInf = new Menu(TYPE_MENUS[1]);
-        menuPar = new Menu(TYPE_MENUS[2]);
-        menuMan = new Menu(TYPE_MENUS[3]);
-        menuHis = new Menu(TYPE_MENUS[4]);
+        Label lbscenario = new Label("Scénario");
+        this.getChildren().add(lbscenario);
+        scenario = new GridPaneScenario();
+        this.getChildren().add(scenario);
 
-        menuBar.getMenus().addAll(menuSce, menuInf, menuPar, menuMan, menuHis);
-        this.getChildren().add(menuBar);
-        VBoxMenu.setMargin(menuBar, new Insets(30));
 
-        tableHistorique = new TableView<Historique>();
-        TableColumn <Historique, Position> postionColumn = new TableColumn<>("Position");
-        TableColumn <Historique, String> stringColumn = new TableColumn<>("Descriptions");
-        TableColumn <Historique, Integer> intColumn = new TableColumn<>("Cristal");
+        VBoxMenu.setMargin(scenario, new Insets(30));
 
-        postionColumn.setCellValueFactory(new PropertyValueFactory<>("chPosition"));
-        stringColumn.setCellValueFactory(new PropertyValueFactory<>("chString"));
-        intColumn.setCellValueFactory(new PropertyValueFactory<>("chCristaux"));
+        Label lbinformations = new Label("Informations");
+        this.getChildren().add(lbinformations);
+        informations = new GridPaneInformations();
+        this.getChildren().add(informations);
 
-        postionColumn.setPrefWidth(100);
-        stringColumn.setPrefWidth(200);
-        intColumn.setPrefWidth(100);
-        tableHistorique.getColumns().add(postionColumn);
-        tableHistorique.getColumns().add(stringColumn);
-        tableHistorique.getColumns().add(intColumn);
+        VBoxMenu.setMargin(informations, new Insets(30));
 
-        this.getChildren().add(tableHistorique);
-        VBoxMenu.setMargin(tableHistorique, new Insets(30));
+        Label lbparcours = new Label("Parcours");
+        this.getChildren().add(lbparcours);
+        parcours = new GridPaneParcours();
+        this.getChildren().add(parcours);
+
+        VBoxMenu.setMargin(parcours, new Insets(30));
+
+
+        Label lbhistorique = new Label("Historique");
+        this.getChildren().add(lbhistorique);
+        historique = new TableViewHistorique();
+        this.getChildren().add(historique);
+
+        VBoxMenu.setMargin(historique, new Insets(30));
+
     }
+
+    public String getScenario() {
+        return scenario.getScenario();
+    }
+
+
 }

@@ -1,6 +1,8 @@
 package vue;
 
+import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
@@ -8,16 +10,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import modele.*;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 import static java.lang.Math.abs;
 
 public class VBoxCarte extends VBox implements Constantes {
 
-    private Canvas canvasCarte;
+    Canvas canvasCarte;
 
     GraphicsContext graphicsContext2D;
+    Boolean deplacement = false;
 
     public VBoxCarte() {
 
@@ -93,34 +95,71 @@ public class VBoxCarte extends VBox implements Constantes {
         VBoxCarte.setMargin(canvasCarte, new Insets(30));
 
 
+        canvasCarte.setOnMouseClicked(event -> {
+            int abscisse = (int) event.getX() / CARRE;
+            int ordonnee = (int) event.getY() / CARRE;
+
+            abscisse -= 16;
+            ordonnee -= 16;
+
+            Position positionClick = new Position(abscisse, ordonnee);
+            System.out.println("Position click : " + positionClick);
+            deplacementApprenti(new Position(0,0), positionClick);
+
+        });
+
     }
 
     public Position convertPosition(Position parPosition) {
-        System.out.println("X: " + parPosition.getAbscisse() + " Y: " + parPosition.getOrdonnee());
         int templeX = 0;
         int templeY = 0;
-        if (parPosition.getAbscisse()  < 0) {
-            templeX = abs(parPosition.getAbscisse()) * CARRE;
+
+        if (parPosition.getAbscisse() < 0 ) {
+            templeX = abs(parPosition.getAbscisse() + 16) * CARRE;
         }
-        else if (parPosition.getAbscisse() >= 0) {
-            templeX = (parPosition.getAbscisse() + 16)* CARRE;
+
+        else if (parPosition.getAbscisse() > 0) {
+            templeX = (abs(parPosition.getAbscisse())+16) * CARRE;
         }
+
+        else if (parPosition.getAbscisse() == 0) {
+            templeX = 16 * CARRE;
+        }
+
         if (parPosition.getOrdonnee() < 0) {
-            templeY = abs(parPosition.getOrdonnee()) * CARRE;
+            templeY = abs(parPosition.getOrdonnee()+16) * CARRE;
         }
         else if (parPosition.getOrdonnee() >= 0) {
             templeY = (parPosition.getOrdonnee() + 16) * CARRE;
         }
-        System.out.println("X: " + templeX + " Y: " + templeY);
+        else if (parPosition.getOrdonnee() == 0) {
+            templeY = 16 * CARRE;
+
+        }
+
         return new Position(templeX, templeY);
+
+//        if (parPosition.getAbscisse()  < 0) {
+//            templeX = abs(parPosition.getAbscisse()) * CARRE;
+//        }
+//        else if (parPosition.getAbscisse() >= 0) {
+//            templeX = (parPosition.getAbscisse() + 16)* CARRE;
+//        }
+//        if (parPosition.getOrdonnee() < 0) {
+//            templeY = abs(parPosition.getOrdonnee()) * CARRE;
+//        }
+//        else if (parPosition.getOrdonnee() >= 0) {
+//            templeY = (parPosition.getOrdonnee() + 16) * CARRE;
+//        }
+//        return new Position(templeX, templeY);
 
     }
 
     public void putTemple (Temple parTemple) {
-
         Position templePosition = convertPosition(parTemple.getChPosition());
         graphicsContext2D.setFill(Color.BLUE);
         graphicsContext2D.fillOval(templePosition.getAbscisse() + 1, templePosition.getOrdonnee() + 1, CARRE - 2, CARRE - 2);
+        System.out.println("Application temple");
 
     }
 
@@ -139,19 +178,46 @@ public class VBoxCarte extends VBox implements Constantes {
 
     public void deleteObject (Position parPosition) {
         Position apprentiPosition = convertPosition(parPosition);
+        System.out.println("Delete" + apprentiPosition);
         graphicsContext2D.setFill(Color.WHITESMOKE);
         graphicsContext2D.clearRect(apprentiPosition.getAbscisse() + 1, apprentiPosition.getOrdonnee()+ 1, CARRE-2, CARRE-2);
 
     }
 
-    public void updateMap (Collection <Temple> parListeTemple, Position parPosition) {
-        for (Temple temple : parListeTemple) {
+    public void updateMap (Collection <Temple> parListeTempleNouveaux, Collection <Temple> parListeTempleAnciens) {
+        for (Temple temple : parListeTempleAnciens) {
+            deleteObject(temple.getChPosition());
+        }
+
+        for(Temple temple : parListeTempleNouveaux) {
             putTemple(temple);
         }
-        putApprenti(parPosition);
+        putApprenti(new Position(0,0));
     }
 
 
+    public void deplacementApprenti (Position parPositionCourante, Position parPositionCible) {
+        Timer timer = new Timer();
+        TimerTask timertask = new TimerTask() {
+            @Override
+            public void run() {
+                deleteObject(parPositionCourante);
+                parPositionCourante.deplacementUneCase(parPositionCible);
+                System.out.println(parPositionCourante);
+                putApprenti(parPositionCourante);
 
+                if (parPositionCourante.equals(parPositionCible)) {
+                    timer.cancel();
+                }
+            }
+        };
+
+        timer.scheduleAtFixedRate(timertask, 500, 500);
+    }
+
+    public void resetApprenti (Position parPosition) {
+        deleteObject(parPosition);
+        putApprenti(new Position(0,0));
+    }
 
 }

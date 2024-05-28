@@ -14,6 +14,7 @@ public class Position {
     }
 
     public void deplacementUneCase(Position parPosition) {
+
         nombreDePas++;
         if (abscisse > parPosition.abscisse) {
             this.abscisse -= 1;
@@ -36,6 +37,16 @@ public class Position {
         }
 
     }
+
+    public void setAbscisse(int abscisse) {
+        this.abscisse = abscisse;
+    }
+
+    public void setOrdonnee(int ordonnee) {
+        this.ordonnee = ordonnee;
+    }
+
+
     public boolean equals(Position position) {
         if (position.abscisse - abscisse == 0 && position.ordonnee - ordonnee == 0) {
             return true;
@@ -44,6 +55,8 @@ public class Position {
             return false;
         }
     }
+
+
 
     public void SetNombreDePas(int parNb) {
         nombreDePas = parNb;
