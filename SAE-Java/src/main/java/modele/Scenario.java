@@ -15,7 +15,7 @@ public class Scenario {
     public Scenario (String parFile) {
 
         this.listeTemple = new ArrayList<>();
-        File fichier = new File ("data" + File.separator + parFile);
+        File fichier = new File ("SAE-Java"+ File.separator +"data" +File.separator + parFile);
 
         try {
             Scanner scanner = new Scanner(fichier).useDelimiter("\\s+");
