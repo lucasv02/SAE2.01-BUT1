@@ -1,5 +1,6 @@
 package vue;
 
+import controleur.Controleur;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,7 +20,10 @@ public class VBoxCarte extends VBox implements Constantes {
     Canvas canvasCarte;
 
     GraphicsContext graphicsContext2D;
-    Boolean deplacement = false;
+
+    private Boolean deplacement = false;
+
+    private Boolean initialisation = false;
 
     public VBoxCarte() {
 
@@ -138,29 +142,21 @@ public class VBoxCarte extends VBox implements Constantes {
         }
 
         return new Position(templeX, templeY);
-
-//        if (parPosition.getAbscisse()  < 0) {
-//            templeX = abs(parPosition.getAbscisse()) * CARRE;
-//        }
-//        else if (parPosition.getAbscisse() >= 0) {
-//            templeX = (parPosition.getAbscisse() + 16)* CARRE;
-//        }
-//        if (parPosition.getOrdonnee() < 0) {
-//            templeY = abs(parPosition.getOrdonnee()) * CARRE;
-//        }
-//        else if (parPosition.getOrdonnee() >= 0) {
-//            templeY = (parPosition.getOrdonnee() + 16) * CARRE;
-//        }
-//        return new Position(templeX, templeY);
-
     }
 
     public void putTemple (Temple parTemple) {
         Position templePosition = convertPosition(parTemple.getChPosition());
-        graphicsContext2D.setFill(Color.BLUE);
-        graphicsContext2D.fillOval(templePosition.getAbscisse() + 1, templePosition.getOrdonnee() + 1, CARRE - 2, CARRE - 2);
+        graphicsContext2D.setFill(Color.web(COULEUR_HEX_TEMPLE[parTemple.getChCouleur()]));
+        graphicsContext2D.fillRect(templePosition.getAbscisse() + 1, templePosition.getOrdonnee() + 1, CARRE - 2, CARRE - 2);
         System.out.println("Application temple");
 
+    }
+
+    public void putCristal (Temple parTemple) {
+        Position templePosition = convertPosition(parTemple.getChPosition());
+        graphicsContext2D.setFill(Color.web(COULEUR_HEX_TEMPLE[parTemple.getChCristal()]));
+        graphicsContext2D.fillOval(templePosition.getAbscisse() + 1 + CARRE/4, templePosition.getOrdonnee() + 1 + CARRE/4, CARRE/2, CARRE/2);
+        System.out.println("Application cristal");
     }
 
     public void putApprenti (Position parPosition) {
@@ -170,10 +166,25 @@ public class VBoxCarte extends VBox implements Constantes {
     }
 
     public void initialisationMap (Collection <Temple> parListeTemple) {
-        for (Temple temple : parListeTemple) {
-            putTemple(temple);
+        if (!initialisation) {
+            for (Temple temple : parListeTemple) {
+                putTemple(temple);
+                putCristal(temple);
+            }
+            putApprenti(new Position(0, 0));
+            initialisation = true;
         }
-        putApprenti(new Position(0, 0));
+    }
+
+    public void reset(Collection <Temple> parListeTemple, ApprentiOrdonnateur parApprenti) {
+        if (initialisation) {
+            for (Temple temple : parListeTemple) {
+                deleteObject(temple.getChPosition());
+                deleteObject(parApprenti.getPositionApprenti());
+            }
+            initialisation = false;
+        }
+
     }
 
     public void deleteObject (Position parPosition) {
@@ -197,22 +208,27 @@ public class VBoxCarte extends VBox implements Constantes {
 
 
     public void deplacementApprenti (Position parPositionCourante, Position parPositionCible) {
-        Timer timer = new Timer();
-        TimerTask timertask = new TimerTask() {
-            @Override
-            public void run() {
-                deleteObject(parPositionCourante);
-                parPositionCourante.deplacementUneCase(parPositionCible);
-                System.out.println(parPositionCourante);
-                putApprenti(parPositionCourante);
+        if (! deplacement) {
+            deplacement = true;
+            Timer timer = new Timer();
+            TimerTask timertask = new TimerTask() {
+                @Override
+                public void run() {
+                    deleteObject(parPositionCourante);
+                    parPositionCourante.deplacementUneCase(parPositionCible);
+                    System.out.println(parPositionCourante);
+                    putApprenti(parPositionCourante);
 
-                if (parPositionCourante.equals(parPositionCible)) {
-                    timer.cancel();
+                    if (parPositionCourante.equals(parPositionCible)) {
+                        timer.cancel();
+                        deplacement = false;
+                    }
                 }
-            }
-        };
+            };
 
-        timer.scheduleAtFixedRate(timertask, 500, 500);
+            timer.scheduleAtFixedRate(timertask, 500, 500);
+        }
+
     }
 
     public void resetApprenti (Position parPosition) {

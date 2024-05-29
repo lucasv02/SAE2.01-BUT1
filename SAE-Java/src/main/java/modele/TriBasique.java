@@ -1,5 +1,6 @@
 package modele;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ public class TriBasique {
      * @param temples  la liste des temples à réaligner
      * @param apprenti l'apprenti ordonnateur qui se déplace pour réaligner les cristaux
      */
-    public static void realignerTemples(List<Temple> temples, ApprentiOrdonnateur apprenti) {
+    public static void realignerTemples(ArrayList <Temple> temples, ApprentiOrdonnateur apprenti) {
         int n = temples.size();
         for (int i = 0; i < n - 1; i++) {
             // Trouver l'index du minimum élément à partir de i

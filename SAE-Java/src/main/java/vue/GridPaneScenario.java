@@ -62,13 +62,19 @@ public class GridPaneScenario extends GridPane {
             }
         });
 
+        btReset.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HBoxApp.getControleur().reset();
+            }
+        });
+
 
     }
 
     public String getScenario() {
         return fichier.getValue();
     }
-
 
 
 
