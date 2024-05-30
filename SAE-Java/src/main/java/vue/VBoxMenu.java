@@ -67,4 +67,8 @@ public class VBoxMenu extends VBox implements Constantes {
     public void setLabelNbTemple (int parValeur) {
         informations.setLbTemple(String.valueOf(parValeur));
     }
+
+    public void setLabelNBPas (int parValeur) {
+        informations.setLbPas(String.valueOf(parValeur));
+    }
 }

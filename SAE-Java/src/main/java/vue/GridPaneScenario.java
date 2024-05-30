@@ -44,9 +44,10 @@ public class GridPaneScenario extends GridPane {
         Button btValider = new Button("Valider");
         Button btAnnuler = new Button("Annuler");
         Button btReset = new Button("Reset");
-        this.add(btReset, 1, ligne);
         this.add(btAnnuler,0 , ligne);
-        this.add(btValider, 2, ligne);
+        this.add(btValider, 1, ligne);
+        this.add(btReset, 2, ligne);
+
 
         btValider.setOnAction(new EventHandler<ActionEvent>() {
             @Override

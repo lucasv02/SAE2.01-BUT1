@@ -56,4 +56,14 @@ public class Scenario {
     public ApprentiOrdonnateur getApprenti() {
         return apprenti;
     }
+
+    public Temple getTemple (Position parPosition) {
+        for (Temple temple : listeTemple) {
+            if (temple.getChPosition().equals(parPosition)) {
+                return temple;
+            }
+        }
+        return null;
+    }
 }
+

@@ -25,6 +25,8 @@ public class VBoxCarte extends VBox implements Constantes {
 
     private Boolean initialisation = false;
 
+    private Boolean cristal = false;
+
     public VBoxCarte() {
 
         canvasCarte = new Canvas();
@@ -108,8 +110,11 @@ public class VBoxCarte extends VBox implements Constantes {
 
             Position positionClick = new Position(abscisse, ordonnee);
             System.out.println("Position click : " + positionClick);
-            deplacementApprenti(new Position(0,0), positionClick);
-
+            if (initialisation) {
+                if (positionClick.getAbscisse() != -16 &&  positionClick.getOrdonnee() != -16 ) {
+                    HBoxApp.getControleur().deplacement(positionClick);
+                }
+            }
         });
 
     }
@@ -154,24 +159,40 @@ public class VBoxCarte extends VBox implements Constantes {
 
     public void putCristal (Temple parTemple) {
         Position templePosition = convertPosition(parTemple.getChPosition());
-        graphicsContext2D.setFill(Color.web(COULEUR_HEX_TEMPLE[parTemple.getChCristal()]));
-        graphicsContext2D.fillOval(templePosition.getAbscisse() + 1 + CARRE/4, templePosition.getOrdonnee() + 1 + CARRE/4, CARRE/2, CARRE/2);
-        System.out.println("Application cristal");
+        if (parTemple.getChCristal() == -1) {
+            return;
+        }
+        else {
+            graphicsContext2D.setFill(Color.web(COULEUR_HEX_TEMPLE[parTemple.getChCristal()]));
+            graphicsContext2D.fillOval(templePosition.getAbscisse() + 1 + CARRE / 4, templePosition.getOrdonnee() + 1 + CARRE / 4, CARRE / 2, CARRE / 2);
+            System.out.println("Application cristal");
+        }
     }
 
-    public void putApprenti (Position parPosition) {
-         Position apprentiPosition = convertPosition(parPosition);
+    public void putCristalJoueur (ApprentiOrdonnateur parApprenti) {
+        Position JoueurPosition = convertPosition(parApprenti.getPositionApprenti());
+        graphicsContext2D.setFill(Color.web(COULEUR_HEX_TEMPLE[parApprenti.getCristalInHand()]));
+        graphicsContext2D.fillOval(JoueurPosition.getAbscisse() + 1 + CARRE / 4, JoueurPosition.getOrdonnee() + 1 + CARRE / 4, CARRE / 2, CARRE / 2);
+
+    }
+
+    public void putApprenti (ApprentiOrdonnateur parApprenti) {
+         Position apprentiPosition = convertPosition(parApprenti.getPositionApprenti());
         graphicsContext2D.setFill(Color.DARKCYAN);
         graphicsContext2D.fillOval(apprentiPosition.getAbscisse()+ 1, apprentiPosition.getOrdonnee() + 1, CARRE-2, CARRE-2);
+        if (cristal) {
+            putCristalJoueur(parApprenti);
+        }
+
     }
 
-    public void initialisationMap (Collection <Temple> parListeTemple) {
+    public void initialisationMap (Collection <Temple> parListeTemple, ApprentiOrdonnateur parApprenti) {
         if (!initialisation) {
             for (Temple temple : parListeTemple) {
                 putTemple(temple);
                 putCristal(temple);
             }
-            putApprenti(new Position(0, 0));
+            putApprenti(parApprenti);
             initialisation = true;
         }
     }
@@ -195,34 +216,40 @@ public class VBoxCarte extends VBox implements Constantes {
 
     }
 
-    public void updateMap (Collection <Temple> parListeTempleNouveaux, Collection <Temple> parListeTempleAnciens) {
-        for (Temple temple : parListeTempleAnciens) {
-            deleteObject(temple.getChPosition());
-        }
 
-        for(Temple temple : parListeTempleNouveaux) {
-            putTemple(temple);
-        }
-        putApprenti(new Position(0,0));
-    }
-
-
-    public void deplacementApprenti (Position parPositionCourante, Position parPositionCible) {
+    public void deplacementApprenti (Position parPositionCible, Scenario parScenario) {
         if (! deplacement) {
             deplacement = true;
             Timer timer = new Timer();
             TimerTask timertask = new TimerTask() {
                 @Override
                 public void run() {
-                    deleteObject(parPositionCourante);
-                    parPositionCourante.deplacementUneCase(parPositionCible);
-                    System.out.println(parPositionCourante);
-                    putApprenti(parPositionCourante);
+                    deleteObject(parScenario.getApprenti().getPositionApprenti());
 
-                    if (parPositionCourante.equals(parPositionCible)) {
+                    for (Temple temple : parScenario.getListeTemple()) {
+                        if (parScenario.getApprenti().getPositionApprenti().equals(temple.getChPosition())) {
+                            putTemple(temple);
+                            putCristal(temple);
+                        }
+                    }
+
+                    parScenario.getApprenti().getPositionApprenti().deplacementUneCase(parPositionCible);
+                    putApprenti(parScenario.getApprenti());
+
+                    if (parScenario.getTemple(parScenario.getApprenti().getPositionApprenti()) != null && parPositionCible.equals(parScenario.getApprenti().getPositionApprenti())) {
+                        if (!cristal) {
+                            HBoxApp.getControleur().prendreCristal();
+                        }
+                        else {
+                            HBoxApp.getControleur().echangeCristal();}
+                    }
+                    if (parScenario.getApprenti().getPositionApprenti().equals(parPositionCible)) {
                         timer.cancel();
                         deplacement = false;
                     }
+                    Platform.runLater(() -> {
+                        HBoxApp.getMenu().setLabelNBPas(Position.getNombreDePas());
+                    });
                 }
             };
 
@@ -231,9 +258,8 @@ public class VBoxCarte extends VBox implements Constantes {
 
     }
 
-    public void resetApprenti (Position parPosition) {
-        deleteObject(parPosition);
-        putApprenti(new Position(0,0));
+    public void setCristal(Boolean parBoolean) {
+        cristal = parBoolean;
     }
 
 }

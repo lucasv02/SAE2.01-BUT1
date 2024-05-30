@@ -11,30 +11,16 @@ public class ApprentiOrdonnateur {
         this.cristalInHand = -1;
     }
 
-    // Méthode pour obtenir la position de l'apprenti
-    public Position getPositionApprenti() {
-        return posApprenti;
-    }
-
     // Méthode pour définir la position de l'apprenti
-    public void setPositionApprenti(Position posApprenti) {
-        this.posApprenti = posApprenti;
-    }
-
-    // Méthode pour obtenir le cristal que l'apprenti tient
-    public int getCristalInHand() {
-        return cristalInHand;
-    }
+//    public void setPositionApprenti(Position posApprenti) {
+//        this.posApprenti = posApprenti;
+//    }
 
     // Méthode pour définir le cristal que l'apprenti tient
     public void setCristalInHand(int cristalInHand) {
         this.cristalInHand = cristalInHand;
     }
 
-    // Méthode pour déplacer l'apprenti à une position donnée
-    public void deplacer(Position position) {
-
-    }
     // Méthode pour que l'apprenti dépose le cristal dans le temple donné
     public void deposerCristal(Temple temple) {
         // Vérifier si l'apprenti tient un cristal
@@ -49,6 +35,19 @@ public class ApprentiOrdonnateur {
         }
     }
 
+    // Méthode pour obtenir la position de l'apprenti
+    public Position getPositionApprenti() {
+        return posApprenti;
+    }
+
+    // Méthode pour obtenir le cristal que l'apprenti tient
+    public int getCristalInHand() {
+        return cristalInHand;
+    }
+
+    public void deplacer(Position position) {
+
+    }
 }
 
 

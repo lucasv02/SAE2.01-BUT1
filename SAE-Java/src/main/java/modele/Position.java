@@ -1,8 +1,6 @@
 package modele;
 
 public class Position {
-    public static int getAbscisse;
-    public static int getOrdonnee;
     private static int nombreDePas = 0;
     private int abscisse;
     private int ordonnee;
@@ -14,7 +12,6 @@ public class Position {
     }
 
     public void deplacementUneCase(Position parPosition) {
-
         nombreDePas++;
         if (abscisse > parPosition.abscisse) {
             this.abscisse -= 1;
@@ -41,6 +38,7 @@ public class Position {
     public void setAbscisse(int abscisse) {
         this.abscisse = abscisse;
     }
+
 
     public void setOrdonnee(int ordonnee) {
         this.ordonnee = ordonnee;
