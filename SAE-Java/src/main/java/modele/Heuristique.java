@@ -1,34 +1,47 @@
 package modele;
 
+import vue.HBoxApp;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import static java.lang.Math.abs;
 
 public class Heuristique {
 
-    public static void realignerTemples(List<Temple> temples, ApprentiOrdonnateur apprenti){
-        for(Temple temple : temples){
-            if (temple.getChCouleur() != temple.getChCristal()){
-                Temple targetTemple = trouverTempleParCouleur(temples,temple.getChCristal());
-                deplacerCristal(temple,targetTemple, apprenti);
-            }
-        }
+    public Heuristique (Scenario parScenario) {
+        Temple templePlusProche = getTempleLePlusProche(parScenario);
+        HBoxApp.getControleur().deplacement(templePlusProche.getChPosition());
     }
 
-    private static Temple trouverTempleParCouleur(List<Temple> temples, int couleur) {
+    public Temple getTempleLePlusProche(Scenario scenario) {
+        Collection<Temple> temples = scenario.getListeTemple();
+        Temple templeLePlusProche = null;
+        double distanceMin = Double.MAX_VALUE;
+
         for (Temple temple : temples) {
-            if (temple.getChCouleur() == couleur) {
-                return temple;
+            double distance = distanceEntre(temple.getChPosition(), scenario.getApprenti().getPositionApprenti());
+            if (distance < distanceMin) {
+                templeLePlusProche = temple;
+                distanceMin = distance;
             }
         }
-        return null;
+
+        if (templeLePlusProche == null) {
+            // Handle the case where no temple was found
+            // This could be by returning a default value, throwing an exception, etc.
+        }
+
+        return templeLePlusProche;
     }
 
-    private static void deplacerCristal( Temple source, Temple cible, ApprentiOrdonnateur apprenti) {
-        // Déplacement de l'apprenti au temple source
-        apprenti.deplacer(source.getChPosition());
-        apprenti.setCristalInHand(source.getChCristal());
-
-        // Déplacement de l'apprenti au temple cible
-        apprenti.deplacer(cible.getChPosition());
-        apprenti.deposerCristal(cible);
+    public int distanceEntre (Position position1, Position position2) {
+        int distanceX = abs(position1.getAbscisse() - position2.getAbscisse());
+        int distanceY = abs(position1.getOrdonnee() - position2.getOrdonnee());
+        return distanceX + distanceY;
     }
+
+
+
 }

@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import modele.ApprentiOrdonnateur;
+import modele.Heuristique;
 import modele.Position;
 import modele.Scenario;
 import vue.HBoxApp;
@@ -71,6 +72,9 @@ public class Controleur implements EventHandler {
         getApprenti().setCristalInHand(couleurtemple);
     }
 
+    public void heuristique() {
+        Heuristique heuristique = new Heuristique(scenario);
+    }
 
 
 

@@ -1,5 +1,7 @@
 package vue;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -22,6 +24,13 @@ public class GridPaneParcours extends GridPane {
         Label lbIntituleParTrie = new Label(" Trie à bulle");
         this.add(btTrie,0, ligne);
         this.add(lbIntituleParTrie, 1, ligne++, 3, 1);
+
+        btHeuristique.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HBoxApp.getControleur().heuristique();
+            }
+        });
 
     }
 

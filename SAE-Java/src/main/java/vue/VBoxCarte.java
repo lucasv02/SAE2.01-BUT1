@@ -160,7 +160,9 @@ public class VBoxCarte extends VBox implements Constantes {
     public void putCristal (Temple parTemple) {
         Position templePosition = convertPosition(parTemple.getChPosition());
         if (parTemple.getChCristal() == -1) {
-            return;
+            graphicsContext2D.setFill(Color.WHITE);
+            graphicsContext2D.fillOval(templePosition.getAbscisse() + 1 + CARRE / 4, templePosition.getOrdonnee() + 1 + CARRE / 4, CARRE / 2, CARRE / 2);
+
         }
         else {
             graphicsContext2D.setFill(Color.web(COULEUR_HEX_TEMPLE[parTemple.getChCristal()]));
@@ -171,9 +173,14 @@ public class VBoxCarte extends VBox implements Constantes {
 
     public void putCristalJoueur (ApprentiOrdonnateur parApprenti) {
         Position JoueurPosition = convertPosition(parApprenti.getPositionApprenti());
-        graphicsContext2D.setFill(Color.web(COULEUR_HEX_TEMPLE[parApprenti.getCristalInHand()]));
-        graphicsContext2D.fillOval(JoueurPosition.getAbscisse() + 1 + CARRE / 4, JoueurPosition.getOrdonnee() + 1 + CARRE / 4, CARRE / 2, CARRE / 2);
-
+        if (parApprenti.getCristalInHand() == -1) {
+            graphicsContext2D.setFill(Color.WHITE);
+            graphicsContext2D.fillOval(JoueurPosition.getAbscisse() + 1 + CARRE / 4, JoueurPosition.getOrdonnee() + 1 + CARRE / 4, CARRE / 2, CARRE / 2);
+        }
+        else {
+            graphicsContext2D.setFill(Color.web(COULEUR_HEX_TEMPLE[parApprenti.getCristalInHand()]));
+            graphicsContext2D.fillOval(JoueurPosition.getAbscisse() + 1 + CARRE / 4, JoueurPosition.getOrdonnee() + 1 + CARRE / 4, CARRE / 2, CARRE / 2);
+        }
     }
 
     public void putApprenti (ApprentiOrdonnateur parApprenti) {
@@ -182,6 +189,12 @@ public class VBoxCarte extends VBox implements Constantes {
         graphicsContext2D.fillOval(apprentiPosition.getAbscisse()+ 1, apprentiPosition.getOrdonnee() + 1, CARRE-2, CARRE-2);
         if (cristal) {
             putCristalJoueur(parApprenti);
+        }
+
+        else {
+            graphicsContext2D.setFill(Color.WHITE);
+            graphicsContext2D.fillOval(apprentiPosition.getAbscisse() + 1 + CARRE / 4, apprentiPosition.getOrdonnee() + 1 + CARRE / 4, CARRE / 2, CARRE / 2);
+        
         }
 
     }
