@@ -5,6 +5,7 @@ public class Position {
     private int abscisse;
     private int ordonnee;
 
+
     public Position(int abscisse, int ordonnee) {
 
         this.abscisse = abscisse;
@@ -53,8 +54,11 @@ public class Position {
             return false;
         }
     }
-
-
+    public double distanceTo(Position other) {
+        double deltaX = this.abscisse - other.getAbscisse();
+        double deltaY = this.ordonnee - other.getOrdonnee();
+        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    }
 
     public void SetNombreDePas(int parNb) {
         nombreDePas = parNb;
@@ -75,4 +79,5 @@ public class Position {
     public String toString() {
         return "(" + abscisse +  "," + ordonnee + ")";
     }
-}
+
+    }

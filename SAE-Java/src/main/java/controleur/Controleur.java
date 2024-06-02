@@ -9,6 +9,7 @@ import modele.ApprentiOrdonnateur;
 import modele.Heuristique;
 import modele.Position;
 import modele.Scenario;
+import modele.TriBasique;
 import vue.HBoxApp;
 import vue.VBoxCarte;
 import vue.VBoxMenu;
@@ -22,6 +23,10 @@ public class Controleur implements EventHandler {
 
     private VBoxMenu menu = HBoxApp.getMenu();
 
+    private Boolean init = false;
+
+    private Boolean deplacement = false;
+
     public void handle(Event event) {
 
     }
@@ -33,6 +38,7 @@ public class Controleur implements EventHandler {
         scenario = new Scenario(intitulee);
         carte.initialisationMap(scenario.getListeTemple(), scenario.getApprenti());
         menu.setLabelNbTemple(scenario.getListeTemple().size());
+        init = true;
     }
 
     public void reset() {
@@ -41,11 +47,12 @@ public class Controleur implements EventHandler {
         menu.setLabelNbTemple(0);
         menu.setLabelNBPas(0);
         carte.setCristal(false);
-
+        init = false;
     }
 
     public void deplacement (Position parPosition) {
         carte.deplacementApprenti(parPosition, HBoxApp.getControleur().getScenario());
+        deplacement = true;
     }
 
     public ApprentiOrdonnateur getApprenti() {
@@ -73,7 +80,15 @@ public class Controleur implements EventHandler {
     }
 
     public void heuristique() {
-        Heuristique heuristique = new Heuristique(scenario);
+        if (init) {
+            Heuristique heuristique = new Heuristique(scenario);
+        }
+    }
+
+    public void Tri(){
+        if (init) {
+            TriBasique tri = new TriBasique(scenario);
+        }
     }
 
 

@@ -1,10 +1,11 @@
 package modele;
 
+import modele.Position;
+import modele.Scenario;
+import modele.Temple;
 import vue.HBoxApp;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import static java.lang.Math.abs;
 

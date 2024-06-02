@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HeuristiqueTest {
+class PositionTest {
 
     @Test
-    void realignerTemples() {
+    void deplacementUneCase() {
     }
 }

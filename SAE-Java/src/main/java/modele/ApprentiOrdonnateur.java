@@ -1,5 +1,7 @@
 package modele;
 
+import org.jetbrains.annotations.NotNull;
+
 public class ApprentiOrdonnateur {
 
     private Position posApprenti;
@@ -12,9 +14,9 @@ public class ApprentiOrdonnateur {
     }
 
     // Méthode pour définir la position de l'apprenti
-//    public void setPositionApprenti(Position posApprenti) {
-//        this.posApprenti = posApprenti;
-//    }
+    public void setPositionApprenti(Position posApprenti) {
+       this.posApprenti = posApprenti;
+   }
 
     // Méthode pour définir le cristal que l'apprenti tient
     public void setCristalInHand(int cristalInHand) {
@@ -22,18 +24,11 @@ public class ApprentiOrdonnateur {
     }
 
     // Méthode pour que l'apprenti dépose le cristal dans le temple donné
-    public void deposerCristal(Temple temple) {
-        // Vérifier si l'apprenti tient un cristal
-        if (cristalInHand != -1) {
-            // Déposer le cristal dans le temple
-            temple.setChCristal(cristalInHand);
-            cristalInHand = -1; // Réinitialiser le cristal en main de l'apprenti
-            System.out.println("Cristal déposé dans le temple à la position " + temple.getChPosition());
-        }
-        else {
-            System.out.println("Aucun cristal en main pour déposer.");
-        }
+    public void deposerCristal( Temple temple) {
+        temple.setChCristal(this.cristalInHand);
+        this.cristalInHand = -1; // L'apprenti n'a plus de cristal en main
     }
+
 
     // Méthode pour obtenir la position de l'apprenti
     public Position getPositionApprenti() {
@@ -45,9 +40,13 @@ public class ApprentiOrdonnateur {
         return cristalInHand;
     }
 
-    public void deplacer(Position position) {
+    public void deplacer(Position nouvellePosition) {
+        this.posApprenti = nouvellePosition;
+        }
 
-    }
 }
+
+
+
 
 

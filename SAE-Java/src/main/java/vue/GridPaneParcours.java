@@ -20,9 +20,9 @@ public class GridPaneParcours extends GridPane {
 
 
         // Deuxième ligne du GridPane
-        Button btTrie = new Button("Activer");
+        Button btTri = new Button("Activer");
         Label lbIntituleParTrie = new Label(" Trie à bulle");
-        this.add(btTrie,0, ligne);
+        this.add(btTri,0, ligne);
         this.add(lbIntituleParTrie, 1, ligne++, 3, 1);
 
         btHeuristique.setOnAction(new EventHandler<ActionEvent>() {
@@ -32,6 +32,12 @@ public class GridPaneParcours extends GridPane {
             }
         });
 
+        btTri.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                HBoxApp.getControleur().Tri();
+            }
+        });
     }
 
 }

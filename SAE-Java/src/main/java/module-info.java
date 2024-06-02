@@ -4,6 +4,7 @@ module org.example.saejava {
 
     requires org.controlsfx.controls;
     requires javafx.graphics;
+    requires org.jetbrains.annotations;
 
     opens org.example.saejava to javafx.fxml;
     exports org.example.saejava;
