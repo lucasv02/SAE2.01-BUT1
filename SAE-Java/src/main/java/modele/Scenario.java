@@ -15,7 +15,7 @@ public class Scenario {
     public Scenario (String parFile) {
 
         this.listeTemple = new ArrayList<>();
-        File fichier = new File ("Sae-Java"+File.separator+"data" + File.separator + parFile);
+        File fichier = new File ("data" + File.separator + parFile);
 
         try {
             Scanner scanner = new Scanner(fichier).useDelimiter("\\s+");
@@ -31,7 +31,6 @@ public class Scenario {
             }
             apprenti = new ApprentiOrdonnateur();
             scanner.close();
-            System.out.println("Fichier lu");
         }
 
         catch (FileNotFoundException parExecption) {
@@ -65,6 +64,16 @@ public class Scenario {
         }
         return null;
     }
+
+    public Boolean CristauxRemis () {
+        for (Temple temple : listeTemple) {
+            if (temple.getChCouleur() != temple.getChCristal()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 }
 

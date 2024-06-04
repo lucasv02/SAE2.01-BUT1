@@ -21,7 +21,7 @@ public class GridPaneScenario extends GridPane {
         int ligne = 0;
 
         // Initialisation de la ComboBox lectureFichiers
-        File dossier = new File("Sae-Java"+File.separator+"data");
+        File dossier = new File("data");
         File [] listefichier = dossier.listFiles();
         List<String> nomfichier = new ArrayList<>();
         if (listefichier != null) {

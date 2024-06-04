@@ -35,7 +35,7 @@ public class GridPaneParcours extends GridPane {
         btTri.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                HBoxApp.getControleur().Tri();
+                HBoxApp.getControleur().tri();
             }
         });
     }

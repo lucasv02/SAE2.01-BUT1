@@ -27,6 +27,8 @@ public class VBoxCarte extends VBox implements Constantes {
 
     private Boolean cristal = false;
 
+    private int mode = 0;
+
     public VBoxCarte() {
 
         canvasCarte = new Canvas();
@@ -109,10 +111,9 @@ public class VBoxCarte extends VBox implements Constantes {
             ordonnee -= 16;
 
             Position positionClick = new Position(abscisse, ordonnee);
-            System.out.println("Position click : " + positionClick);
             if (initialisation) {
                 if (positionClick.getAbscisse() != -16 &&  positionClick.getOrdonnee() != -16 ) {
-                    HBoxApp.getControleur().deplacement(positionClick);
+                    HBoxApp.getControleur().deplacement(positionClick, 0);
                 }
             }
         });
@@ -153,7 +154,7 @@ public class VBoxCarte extends VBox implements Constantes {
         Position templePosition = convertPosition(parTemple.getChPosition());
         graphicsContext2D.setFill(Color.web(COULEUR_HEX_TEMPLE[parTemple.getChCouleur()]));
         graphicsContext2D.fillRect(templePosition.getAbscisse() + 1, templePosition.getOrdonnee() + 1, CARRE - 2, CARRE - 2);
-        System.out.println("Application temple");
+
 
     }
 
@@ -167,7 +168,7 @@ public class VBoxCarte extends VBox implements Constantes {
         else {
             graphicsContext2D.setFill(Color.web(COULEUR_HEX_TEMPLE[parTemple.getChCristal()]));
             graphicsContext2D.fillOval(templePosition.getAbscisse() + 1 + CARRE / 4, templePosition.getOrdonnee() + 1 + CARRE / 4, CARRE / 2, CARRE / 2);
-            System.out.println("Application cristal");
+
         }
     }
 
@@ -223,7 +224,7 @@ public class VBoxCarte extends VBox implements Constantes {
 
     public void deleteObject (Position parPosition) {
         Position apprentiPosition = convertPosition(parPosition);
-        System.out.println("Delete" + apprentiPosition);
+
         graphicsContext2D.setFill(Color.WHITESMOKE);
         graphicsContext2D.clearRect(apprentiPosition.getAbscisse() + 1, apprentiPosition.getOrdonnee()+ 1, CARRE-2, CARRE-2);
 
@@ -259,6 +260,18 @@ public class VBoxCarte extends VBox implements Constantes {
                     if (parScenario.getApprenti().getPositionApprenti().equals(parPositionCible)) {
                         timer.cancel();
                         deplacement = false;
+                        if (mode == 2) {
+                            if (!parScenario.CristauxRemis()) {
+                                HBoxApp.getControleur().tri();
+                            }
+                        }
+                        if (mode ==3) {
+                            if (!parScenario.CristauxRemis()) {
+                                HBoxApp.getControleur().heuristique();
+                            }
+                        }
+
+
                     }
                     Platform.runLater(() -> {
                         HBoxApp.getMenu().setLabelNBPas(Position.getNombreDePas());
@@ -271,8 +284,26 @@ public class VBoxCarte extends VBox implements Constantes {
 
     }
 
+
+
+
     public void setCristal(Boolean parBoolean) {
         cristal = parBoolean;
     }
 
+    public Boolean getDeplacement() {
+        return deplacement;
+    }
+
+    public Boolean getInitialisation() {
+        return initialisation;
+    }
+
+    public Boolean getCristal() {
+        return cristal;
+    }
+
+    public void setMode(int parMode) {
+        mode = parMode;
+    }
 }

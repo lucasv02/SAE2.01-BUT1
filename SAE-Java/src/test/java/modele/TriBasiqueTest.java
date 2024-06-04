@@ -31,7 +31,7 @@ public class TriBasiqueTest {
             System.out.println("Temple: " + temple.getChCouleur() + " Position: (" + temple.getChPosition() + ") Cristal associé: " + temple.getChCristal());
         }
 
-        TriBasique.realignerTemples(temples, apprenti);
+        Selection.realignerTemples(temples, apprenti);
 
         System.out.println("Après réalignement:");
         for (Temple temple : temples) {

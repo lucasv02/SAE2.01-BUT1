@@ -3,13 +3,7 @@ package controleur;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import modele.ApprentiOrdonnateur;
-import modele.Heuristique;
-import modele.Position;
-import modele.Scenario;
-import modele.TriBasique;
+import modele.*;
 import vue.HBoxApp;
 import vue.VBoxCarte;
 import vue.VBoxMenu;
@@ -23,36 +17,39 @@ public class Controleur implements EventHandler {
 
     private VBoxMenu menu = HBoxApp.getMenu();
 
-    private Boolean init = false;
+    private Heuristique heuristique;
 
-    private Boolean deplacement = false;
+    private static TriSelection triSelection;
+
+    private Boolean tri = false;
 
     public void handle(Event event) {
 
     }
 
     public void initialisation() {
-        System.out.println("Initialisation de la carte");
         String intitulee = menu.getScenario();
-        System.out.println(intitulee);
         scenario = new Scenario(intitulee);
         carte.initialisationMap(scenario.getListeTemple(), scenario.getApprenti());
         menu.setLabelNbTemple(scenario.getListeTemple().size());
-        init = true;
+        heuristique = new Heuristique(scenario);
+        triSelection = new TriSelection(scenario);
     }
 
     public void reset() {
-        System.out.println("Reset de la carte");
-        carte.reset(scenario.getListeTemple(), scenario.getApprenti());
-        menu.setLabelNbTemple(0);
-        menu.setLabelNBPas(0);
-        carte.setCristal(false);
-        init = false;
+        if (!carte.getDeplacement()) {
+
+            carte.reset(scenario.getListeTemple(), scenario.getApprenti());
+            menu.setLabelNbTemple(0);
+            menu.setLabelNBPas(0);
+            carte.setCristal(false);
+            heuristique = new Heuristique(scenario);
+        }
     }
 
-    public void deplacement (Position parPosition) {
+    public void deplacement (Position parPosition, int parMode) {
+        setMode(parMode);
         carte.deplacementApprenti(parPosition, HBoxApp.getControleur().getScenario());
-        deplacement = true;
     }
 
     public ApprentiOrdonnateur getApprenti() {
@@ -80,16 +77,47 @@ public class Controleur implements EventHandler {
     }
 
     public void heuristique() {
-        if (init) {
-            Heuristique heuristique = new Heuristique(scenario);
+        if (carte.getInitialisation()) {
+            heuristique.deplacement(scenario);
         }
     }
 
-    public void Tri(){
-        if (init) {
-            TriBasique tri = new TriBasique(scenario);
+    public void tri() {
+        if (carte.getInitialisation()) {
+            if (!tri) {
+                triSelection = new TriSelection(scenario);
+                triSelection.updatePosition(scenario);
+                deplacement(triSelection.getTempleD().getChPosition(), 2);
+                tri = true;
+            }
+            else {
+                triSelection.deplacement(scenario);
+            }
         }
+
     }
+
+//    public void rappeltri() {
+//        triSelection.EtapeSuivante();
+//        if (triSelection.getEtape() == 1) {
+//            deplacement(triSelection.getPosition2().getChPosition(), 2);
+//        }
+//        else if (triSelection.getEtape() == 2) {
+//            deplacement(triSelection.getPosition1().getChPosition(), 2);
+//        }
+//        else if (triSelection.getEtape() == 3) {
+//            triSelection.updatePosition(scenario);
+//        }
+//    }
+
+    public Boolean getDeplacement () {
+        return carte.getDeplacement();
+    }
+
+    public void setMode(int parMode) {
+        carte.setMode(parMode);
+    }
+
 
 
 

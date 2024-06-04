@@ -14,6 +14,7 @@ import modele.Scenario;
 public class HBoxApp extends HBox implements Constantes {
 
     public static Controleur getControleur;
+
     private static VBoxCarte carte;
 
     private static VBoxMenu menu;
