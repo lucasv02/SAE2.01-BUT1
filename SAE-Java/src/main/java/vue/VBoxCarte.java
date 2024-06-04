@@ -260,6 +260,7 @@ public class VBoxCarte extends VBox implements Constantes {
                     if (parScenario.getApprenti().getPositionApprenti().equals(parPositionCible)) {
                         timer.cancel();
                         deplacement = false;
+
                         if (mode == 2) {
                             if (!parScenario.CristauxRemis()) {
                                 HBoxApp.getControleur().tri();
@@ -274,15 +275,17 @@ public class VBoxCarte extends VBox implements Constantes {
 
                     }
                     Platform.runLater(() -> {
-                        HBoxApp.getMenu().setLabelNBPas(Position.getNombreDePas());
+                        HBoxApp.getMenu().setLabelNBPas(parScenario.getApprenti().getPositionApprenti().getNombreDePas());
+                        HBoxApp.getMenu().setLabelAvancement(parScenario.getNbRemis(), parScenario.getListeTemple().size());
                     });
                 }
             };
 
-            timer.scheduleAtFixedRate(timertask, 500, 500);
+            timer.scheduleAtFixedRate(timertask, 100, 100);
         }
 
     }
+
 
 
 

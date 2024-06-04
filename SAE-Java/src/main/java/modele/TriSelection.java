@@ -25,7 +25,7 @@ public class TriSelection {
     public void deplacement (Scenario parScenario) {
 
         this.EtapeSuivante();
-        System.out.println("Etape" + this.getEtape());
+
         if (this.getEtape() == 1) {
             HBoxApp.getControleur().deplacement(this.getTempleF().getChPosition(), 2);
         }
@@ -34,12 +34,12 @@ public class TriSelection {
         }
         else if (this.getEtape() == 3) {
             this.updatePosition(parScenario);
-            HBoxApp.getControleur().tri();
+            HBoxApp.getControleur().deplacement(this.getTempleD().getChPosition(), 2);
         }
     }
 
     public void updatePosition(Scenario parScenario){
-        System.out.println("UpdatePosition");
+
         etape = 0;
         templesRestant.clear();
         for (Temple temple : parScenario.getListeTemple()) {
@@ -49,7 +49,7 @@ public class TriSelection {
         }
         setTempleDebut();
         setTempleFin();
-
+        System.out.println(templesRestant.size());
     }
 
     public void EtapeSuivante () {

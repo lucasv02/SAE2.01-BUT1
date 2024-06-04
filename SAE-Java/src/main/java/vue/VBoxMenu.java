@@ -71,4 +71,8 @@ public class VBoxMenu extends VBox implements Constantes {
     public void setLabelNBPas (int parValeur) {
         informations.setLbPas(String.valueOf(parValeur));
     }
+
+    public void setLabelAvancement (int parValeur, int parTotal) {
+        informations.setLbAvancement(String.valueOf(parValeur) + " / " + String.valueOf(parTotal));
+    }
 }

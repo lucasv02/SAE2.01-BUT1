@@ -74,6 +74,16 @@ public class Scenario {
         return true;
     }
 
+    public int getNbRemis () {
+        int nb = 0;
+        for (Temple temple : listeTemple) {
+            if (temple.getChCouleur() == temple.getChCristal()) {
+                nb++;
+            }
+        }
+        return nb;
+    }
+
 
 }
 

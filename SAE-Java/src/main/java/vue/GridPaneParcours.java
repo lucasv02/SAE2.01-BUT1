@@ -21,7 +21,7 @@ public class GridPaneParcours extends GridPane {
 
         // Deuxième ligne du GridPane
         Button btTri = new Button("Activer");
-        Label lbIntituleParTrie = new Label(" Trie à bulle");
+        Label lbIntituleParTrie = new Label(" Tri par sélection");
         this.add(btTri,0, ligne);
         this.add(lbIntituleParTrie, 1, ligne++, 3, 1);
 

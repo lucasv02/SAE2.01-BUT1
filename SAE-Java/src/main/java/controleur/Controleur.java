@@ -30,10 +30,11 @@ public class Controleur implements EventHandler {
     public void initialisation() {
         String intitulee = menu.getScenario();
         scenario = new Scenario(intitulee);
+
         carte.initialisationMap(scenario.getListeTemple(), scenario.getApprenti());
         menu.setLabelNbTemple(scenario.getListeTemple().size());
         heuristique = new Heuristique(scenario);
-        triSelection = new TriSelection(scenario);
+
     }
 
     public void reset() {
@@ -42,6 +43,8 @@ public class Controleur implements EventHandler {
             carte.reset(scenario.getListeTemple(), scenario.getApprenti());
             menu.setLabelNbTemple(0);
             menu.setLabelNBPas(0);
+            menu.setLabelAvancement(0, 0);
+            scenario.getApprenti().getPositionApprenti().SetNombreDePas(0);
             carte.setCristal(false);
             heuristique = new Heuristique(scenario);
         }
@@ -97,18 +100,6 @@ public class Controleur implements EventHandler {
 
     }
 
-//    public void rappeltri() {
-//        triSelection.EtapeSuivante();
-//        if (triSelection.getEtape() == 1) {
-//            deplacement(triSelection.getPosition2().getChPosition(), 2);
-//        }
-//        else if (triSelection.getEtape() == 2) {
-//            deplacement(triSelection.getPosition1().getChPosition(), 2);
-//        }
-//        else if (triSelection.getEtape() == 3) {
-//            triSelection.updatePosition(scenario);
-//        }
-//    }
 
     public Boolean getDeplacement () {
         return carte.getDeplacement();
@@ -117,6 +108,7 @@ public class Controleur implements EventHandler {
     public void setMode(int parMode) {
         carte.setMode(parMode);
     }
+
 
 
 
