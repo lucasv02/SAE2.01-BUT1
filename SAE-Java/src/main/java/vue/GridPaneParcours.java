@@ -6,12 +6,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
+/**
+ * Classe GridPaneParcours
+ * Cette classe permet de stocker graphiquement les boutons pour activer le parcours heuristique et le tri par sélection.
+ */
 public class GridPaneParcours extends GridPane {
 
+    /**
+     * Constructeur de la classe GridPaneParcours
+     * Il initialise les boutons pour activer le parcours heuristique et le tri par sélection.
+     */
     public GridPaneParcours() {
-
         int ligne = 0;
-
         // Première ligne du GridPane
         Button btHeuristique = new Button("Activer");
         Label lbIntituleParHeur = new Label(" Parcours héuristique");
@@ -25,6 +31,7 @@ public class GridPaneParcours extends GridPane {
         this.add(btTri,0, ligne);
         this.add(lbIntituleParTrie, 1, ligne++, 3, 1);
 
+        // Gestion du clic sur le bouton btHeuristique
         btHeuristique.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -32,6 +39,7 @@ public class GridPaneParcours extends GridPane {
             }
         });
 
+        // Gestion du clic sur le bouton btTri
         btTri.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

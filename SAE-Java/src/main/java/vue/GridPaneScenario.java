@@ -12,11 +12,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
+/**
+ * Classe GridPaneScenario
+ * Cette classe permet de stocker graphiquement les informations sur le choix du scénario.
+ */
 public class GridPaneScenario extends GridPane {
 
+    // Déclaration des attributs de la classe GridPaneScenario
     ComboBox<String> fichier = new ComboBox<>();
 
+    /**
+     * Constructeur de la classe GridPaneScenario
+     * Il initialise la ComboBox pour le choix du scénario.
+     */
     public GridPaneScenario() {
         int ligne = 0;
 
@@ -48,7 +56,7 @@ public class GridPaneScenario extends GridPane {
         this.add(btValider, 1, ligne);
         this.add(btReset, 2, ligne);
 
-
+        // Gestion du clic sur le bouton btValider
         btValider.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -56,6 +64,7 @@ public class GridPaneScenario extends GridPane {
             }
         });
 
+        // Gestion du clic sur le bouton btAnnuler
         btAnnuler.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -63,6 +72,7 @@ public class GridPaneScenario extends GridPane {
             }
         });
 
+        // Gestion du clic sur le bouton btReset
         btReset.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -73,6 +83,11 @@ public class GridPaneScenario extends GridPane {
 
     }
 
+    /**
+     * Méthode getScenario qui permet de retourner le scénario choisi.
+     * @args : aucun
+     * @return : String
+     */
     public String getScenario() {
         return fichier.getValue();
     }

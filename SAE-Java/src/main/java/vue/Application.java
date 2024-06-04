@@ -9,10 +9,13 @@ import java.util.Map;
 
 public class Application extends javafx.application.Application {
 
-    public void start(Stage stage){
-
-
-
+    /**
+     * Méthode start qui permet de lancer l'application.
+     * Elle instancie un objet de la classe HBoxApp et crée une scène.
+     * @args : Stage stage
+     * @return : void
+     */
+    public void start(Stage stage) {
         HBoxApp root = new HBoxApp();
         Scene scene = new Scene(root, 800, 800);
         stage.setScene(scene);

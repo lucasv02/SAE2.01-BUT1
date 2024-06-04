@@ -6,8 +6,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import modele.Historique;
 import modele.Position;
 
+/**
+ * Classe TableViewHistorique
+ * Cette classe permet de stocker graphiquement les informations de l'historique.
+ */
 public class TableViewHistorique extends TableView {
 
+    /**
+     * Constructeur de la classe TableViewHistorique
+     * Il initialise les colonnes de la TableView.
+     */
     public TableViewHistorique() {
 
         TableColumn<Historique, Position> postionColumn = new TableColumn<>("Position");

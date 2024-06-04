@@ -5,16 +5,24 @@ import vue.HBoxApp;
 
 import java.util.TreeMap;
 
+/**
+ * Classe TriSelection
+ * Cette classe permet de de trier les temples en fonction de leur couleur et de les déplacer.
+ */
 public class TriSelection {
 
+    // Déclaration des attributs de la classe TriSelection
     private TreeMap <Integer, Temple> templesRestant;
-
     private Temple templeD;
-
     private Temple templeF;
-
     private int etape;
 
+    /**
+     * Constructeur de la classe TriSelection
+     * Il initialise les temples restants (temple qui n'ont pas le bon cristal), le temple de départ, le temple d'arrivée et l'étape.
+     * @args : Scenario parScenario
+     * @return : void
+     */
     public TriSelection(Scenario parScenario) {
         templesRestant = new TreeMap<Integer, Temple>();
         templeD = null;
@@ -22,6 +30,11 @@ public class TriSelection {
         etape = 0;
     }
 
+    /**
+     * Méthode deplacement qui permet a l'apprenti de se déplacer en fonction de l'étape afin de réaliser le tri.
+     * @args : Scenario parScenario
+     * @return : void
+     */
     public void deplacement (Scenario parScenario) {
 
         this.EtapeSuivante();
@@ -38,8 +51,12 @@ public class TriSelection {
         }
     }
 
+    /**
+     * Méthode updatePosition qui permet de mettre à jour les temples restants dans la TreeMap.
+     * @args : Scenario parScenario
+     * @return : void
+     */
     public void updatePosition(Scenario parScenario){
-
         etape = 0;
         templesRestant.clear();
         for (Temple temple : parScenario.getListeTemple()) {
@@ -52,17 +69,31 @@ public class TriSelection {
         System.out.println(templesRestant.size());
     }
 
+    /**
+     * Méthode EtapeSuivante qui permet de passer à l'étape suivante.
+     * @args : aucun
+     * @return : void
+     */
     public void EtapeSuivante () {
         etape++;
     }
 
-
+    /**
+     * Méthode setTempleDebut qui permet de définir le temple de départ.
+     * @args : aucun
+     * @return : void
+     */
     public void setTempleDebut() {
         int valeur = templesRestant.firstKey();
         templeD = templesRestant.get(valeur);
 
     }
 
+    /**
+     * Méthode setTempleFin qui permet de définir le temple d'arrivée.
+     * @args : aucun
+     * @return : void
+     */
     public void setTempleFin() {
         for (Temple temple : templesRestant.values()) {
             if (temple.getChCristal() == templeD.getChCouleur()) {
@@ -71,14 +102,29 @@ public class TriSelection {
         }
     }
 
+    /**
+     * Méthode getTempleD qui permet de récupérer le temple de départ.
+     * @args : aucun
+     * @return : Temple : temple de départ
+     */
     public Temple getTempleD() {
         return templeD;
     }
 
+    /**
+     * Méthode getTempleF qui permet de récupérer le temple d'arrivée.
+     * @args : aucun
+     * @return : Temple : temple d'arrivée
+     */
     public Temple getTempleF() {
         return templeF;
     }
 
+    /**
+     * Méthode getEtape qui permet de récupérer l'étape.
+     * @args : aucun
+     * @return : int : étape
+     */
     public int getEtape() {
         return etape;
     }

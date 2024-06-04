@@ -15,20 +15,25 @@ import java.util.*;
 
 import static java.lang.Math.abs;
 
+/**
+ * Classe VBoxCarte
+ * Cette classe permet de stocker graphiquement les éléments de la carte.
+ * Elle hérite de la classe VBox et integre un canvas.
+ */
 public class VBoxCarte extends VBox implements Constantes {
 
+    // Déclaration des attributs de la classe VBoxCarte
     Canvas canvasCarte;
-
     GraphicsContext graphicsContext2D;
-
     private Boolean deplacement = false;
-
     private Boolean initialisation = false;
-
     private Boolean cristal = false;
-
     private int mode = 0;
 
+    /**
+     * Constructeur de la classe VBoxCarte
+     * Il initialise le canvas et le graphicsContext2D notamment pour afficher le quadrillage.
+     */
     public VBoxCarte() {
 
         canvasCarte = new Canvas();
@@ -102,7 +107,7 @@ public class VBoxCarte extends VBox implements Constantes {
         this.getChildren().add(canvasCarte);
         VBoxCarte.setMargin(canvasCarte, new Insets(30));
 
-
+        // Gestion du clic sur le canvas
         canvasCarte.setOnMouseClicked(event -> {
             int abscisse = (int) event.getX() / CARRE;
             int ordonnee = (int) event.getY() / CARRE;
@@ -113,6 +118,7 @@ public class VBoxCarte extends VBox implements Constantes {
             Position positionClick = new Position(abscisse, ordonnee);
             if (initialisation) {
                 if (positionClick.getAbscisse() != -16 &&  positionClick.getOrdonnee() != -16 ) {
+                // Appel de la méthode deplacement de la classe Controleur
                     HBoxApp.getControleur().deplacement(positionClick, 0);
                 }
             }
@@ -120,6 +126,12 @@ public class VBoxCarte extends VBox implements Constantes {
 
     }
 
+    /**
+     * Méthode convertPosition qui permet de convertir une position en pixel qu'elle soit négative ou positive.
+     * La position est convertie en pixel en fonction de la taille d'un carré.
+     * @args : Position parPosition
+     * @return : Position
+     */
     public Position convertPosition(Position parPosition) {
         int templeX = 0;
         int templeY = 0;
@@ -150,6 +162,11 @@ public class VBoxCarte extends VBox implements Constantes {
         return new Position(templeX, templeY);
     }
 
+    /**
+     * Méthode putTemple qui permet d'afficher un temple sur la carte.
+     * @args : Temple parTemple
+     * @return : void
+     */
     public void putTemple (Temple parTemple) {
         Position templePosition = convertPosition(parTemple.getChPosition());
         graphicsContext2D.setFill(Color.web(COULEUR_HEX_TEMPLE[parTemple.getChCouleur()]));
@@ -158,6 +175,11 @@ public class VBoxCarte extends VBox implements Constantes {
 
     }
 
+    /**
+     * Méthode putCristal qui permet d'afficher un cristal sur un temple.
+     * @args : Temple parTemple
+     * @return : void
+     */
     public void putCristal (Temple parTemple) {
         Position templePosition = convertPosition(parTemple.getChPosition());
         if (parTemple.getChCristal() == -1) {
@@ -172,6 +194,11 @@ public class VBoxCarte extends VBox implements Constantes {
         }
     }
 
+    /**
+     * Méthode putCristalJoueur qui permet d'afficher un cristal dans la main du joueur.
+     * @args : ApprentiOrdonnateur parApprenti
+     * @return : void
+     */
     public void putCristalJoueur (ApprentiOrdonnateur parApprenti) {
         Position JoueurPosition = convertPosition(parApprenti.getPositionApprenti());
         if (parApprenti.getCristalInHand() == -1) {
@@ -184,6 +211,11 @@ public class VBoxCarte extends VBox implements Constantes {
         }
     }
 
+    /**
+     * Méthode putApprenti qui permet d'afficher un apprenti sur la carte.
+     * @args : ApprentiOrdonnateur parApprenti
+     * @return : void
+     */
     public void putApprenti (ApprentiOrdonnateur parApprenti) {
          Position apprentiPosition = convertPosition(parApprenti.getPositionApprenti());
         graphicsContext2D.setFill(Color.DARKCYAN);
@@ -195,11 +227,15 @@ public class VBoxCarte extends VBox implements Constantes {
         else {
             graphicsContext2D.setFill(Color.WHITE);
             graphicsContext2D.fillOval(apprentiPosition.getAbscisse() + 1 + CARRE / 4, apprentiPosition.getOrdonnee() + 1 + CARRE / 4, CARRE / 2, CARRE / 2);
-        
         }
 
     }
 
+    /**
+     * Méthode initialisationMap qui permet d'initialiser la carte avec les temples, les cristaux et l'apprenti.
+     * @args : Collection <Temple> parListeTemple, ApprentiOrdonnateur parApprenti
+     * @return : void
+     */
     public void initialisationMap (Collection <Temple> parListeTemple, ApprentiOrdonnateur parApprenti) {
         if (!initialisation) {
             for (Temple temple : parListeTemple) {
@@ -211,6 +247,11 @@ public class VBoxCarte extends VBox implements Constantes {
         }
     }
 
+    /**
+     * Méthode reset qui permet de réinitialiser la carte.
+     * @args : Collection <Temple> parListeTemple, ApprentiOrdonnateur parApprenti
+     * @return : void
+     */
     public void reset(Collection <Temple> parListeTemple, ApprentiOrdonnateur parApprenti) {
         if (initialisation) {
             for (Temple temple : parListeTemple) {
@@ -222,6 +263,11 @@ public class VBoxCarte extends VBox implements Constantes {
 
     }
 
+    /**
+     * Méthode deleteObject qui permet de supprimer un objet sur la carte.
+     * @args : Position parPosition
+     * @return : void
+     */
     public void deleteObject (Position parPosition) {
         Position apprentiPosition = convertPosition(parPosition);
 
@@ -230,7 +276,11 @@ public class VBoxCarte extends VBox implements Constantes {
 
     }
 
-
+    /**
+     * Méthode deplacementApprenti qui permet de déplacer l'apprenti sur la carte.
+     * @args : Position parPositionCible, Scenario parScenario
+     * @return : void
+     */
     public void deplacementApprenti (Position parPositionCible, Scenario parScenario) {
         if (! deplacement) {
             deplacement = true;
@@ -286,26 +336,47 @@ public class VBoxCarte extends VBox implements Constantes {
 
     }
 
-
-
-
-
+    /**
+     * Méthode setCristal qui permet de définir si le joueur a un cristal ou non.
+     * @args : Boolean parBoolean
+     * @return : void
+     */
     public void setCristal(Boolean parBoolean) {
         cristal = parBoolean;
     }
 
+    /**
+     * Méthode getDeplacement qui permet de savoir si un déplacement est en cours.
+     * @args : aucun
+     * @return : Boolean : deplacement (true si un déplacement est en cours, false sinon)
+     */
     public Boolean getDeplacement() {
         return deplacement;
     }
 
+    /**
+     * Méthode getInitialisation qui permet de savoir si l'initialisation à été faite.
+     * @args : aucun
+     * @return : Boolean : initialisation (true si l'initialisation à été faite, false sinon)
+     */
     public Boolean getInitialisation() {
         return initialisation;
     }
 
+    /**
+     * Méthode getCristal qui permet de savoir si le joueur a un cristal ou non.
+     * @args : aucun
+     * @return : Boolean : cristal (true si le joueur a un cristal, false sinon)
+     */
     public Boolean getCristal() {
         return cristal;
     }
 
+    /**
+     * Méthode setMode qui permet de définir le mode de jeu.
+     * @args : int parMode
+     * @return : void
+     */
     public void setMode(int parMode) {
         mode = parMode;
     }
