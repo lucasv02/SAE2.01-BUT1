@@ -12,7 +12,7 @@ import java.util.TreeMap;
 public class TriSelection {
 
     // Déclaration des attributs de la classe TriSelection
-    private TreeMap <Integer, Temple> templesRestant;
+    TreeMap <Integer, Temple> templesRestant;
     private Temple templeD;
     private Temple templeF;
     private int etape;
