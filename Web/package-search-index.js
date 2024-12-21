@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"org.example.saejava","l":"controleur"},{"m":"org.example.saejava","l":"modele"},{"m":"org.example.saejava","l":"org.example.saejava"},{"m":"org.example.saejava","l":"vue"}];updateSearchResults();
